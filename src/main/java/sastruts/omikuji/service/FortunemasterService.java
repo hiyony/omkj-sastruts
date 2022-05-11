@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Generated;
 import javax.annotation.Resource;
 
+import sastruts.omikuji.dto.FortunemasterDto;
 import sastruts.omikuji.entity.Fortunemaster;
 
 /**
@@ -19,21 +20,21 @@ public class FortunemasterService extends AbstractService<Fortunemaster> {
 	
 	//ActionResult.java -> SELECT unseicode, unseiname FROM fortunemaster
 	@Resource
-	public String unseiname;
-	public String unseicode;
+	public FortunemasterDto fmdto;
 	
-	public List<Fortunemaster> getRs1(Fortunemaster result){
-		//List <Fortunemaster> rs1 = jdbcManager.from(Fortunemaster.class)
-		//						.getResultList();
+	public List<Fortunemaster> getselectSQLfromFm(Fortunemaster result){
+		//Dtoファイルを使ってSQL文作成する
+//		List <FortunemasterDto> rs1 = jdbcManager
+//				.selectBySql(FortunemasterDto.class, "SELECT unseicode, unseiname FROM fortunemaster")
+//				.getResultList();
 		
 		//流れるようなインタフェースでMapを組み立てる
-		List <Fortunemaster> rs1 = jdbcManager.from(Fortunemaster.class)
+		List<Fortunemaster> rs1 = jdbcManager.from(Fortunemaster.class)
 				   .where(
-						   params("unseiname", unseiname)
-						   .$("unseicode", unseicode)
+						   params("unseiname", fmdto.unseiname)
+						   .$("unseicode", fmdto.unseicode)
 						   .$())
 				   .getResultList();
-		
 		return rs1;
 	}
 }

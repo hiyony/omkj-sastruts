@@ -3,13 +3,16 @@ package sastruts.omikuji.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Generated;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
+import sastruts.omikuji.dto.OmikujiiDto;
 import sastruts.omikuji.entity.Unseiresult;
+import sastruts.omikuji.form.InputForm;
 
 /**
  * {@link Unseiresult}のサービスクラスです。
@@ -23,21 +26,36 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 	//						 FROM unseiresult
 	//						WHERE uranaidate = ? AND birthday = ?
 	@Resource
-	protected HttpServletRequest request;
+	protected InputForm inputform;
 	
 	@Resource
-	String birthday = (String) request.getAttribute("birthday");
+	String birthday = inputform.birthday;
+	
+	@Resource
+	public OmikujiiDto omkjdto;
 	
 	@Resource
 	DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	Calendar today = Calendar.getInstance();
 	String todayString = df.format(today);
-	
-	public List<Unseiresult> getRs5(Unseiresult result){
+
+	//DTO?
+	public List<Unseiresult> getcompareSQLfromUr(Unseiresult result){
 		List <Unseiresult> rs5 = jdbcManager.from(Unseiresult.class)
 				.where("uranaidate = ?", todayString)
 				.where("birthday = ?", birthday)
 				.getResultList();
+		
+		Iterator<Unseiresult> iterator = rs5.iterator();
+		while(iterator.hasNext()){
+			omkjdto.omikujiID = String.valueOf(iterator.next());
+		}
+		
+		if(omkjdto.omikujiID.isEmpty()){
+			int rannum = new Random().nextInt(/*cnt*/) + 1;
+			omkjdto.omikujiID = String.valueOf(rannum);
+		}
 		return rs5;
 	}
+	
 }
