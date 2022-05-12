@@ -1,7 +1,5 @@
 package sastruts.omikuji.service;
 
-import static org.seasar.extension.jdbc.parameter.Parameter.*;
-
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -24,17 +22,18 @@ public class FortunemasterService extends AbstractService<Fortunemaster> {
 	
 	public List<Fortunemaster> getselectSQLfromFm(Fortunemaster result){
 		//Dtoファイルを使ってSQL文作成する
-//		List <FortunemasterDto> rs1 = jdbcManager
-//				.selectBySql(FortunemasterDto.class, "SELECT unseicode, unseiname FROM fortunemaster")
-//				.getResultList();
+		List <Fortunemaster> rs1 = jdbcManager
+				.from(Fortunemaster.class)
+				//.includes("unseiname", "unseicode")
+				.getResultList();
 		
 		//流れるようなインタフェースでMapを組み立てる
-		List<Fortunemaster> rs1 = jdbcManager.from(Fortunemaster.class)
-				   .where(
-						   params("unseiname", fmdto.unseiname)
-						   .$("unseicode", fmdto.unseicode)
-						   .$())
-				   .getResultList();
+//		List<Fortunemaster> rs1 = jdbcManager.from(Fortunemaster.class)
+//				   .where(
+//						   params("unseiname", fmdto.unseiname)
+//						   .$("unseicode", fmdto.unseicode)
+//						   .$())
+//				   .getResultList();
 		return rs1;
 	}
 }

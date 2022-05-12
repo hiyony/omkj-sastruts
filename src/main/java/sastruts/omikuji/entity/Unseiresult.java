@@ -1,9 +1,11 @@
 package sastruts.omikuji.entity;
 
 import java.io.Serializable;
+
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Unseiresultエンティティクラス
@@ -24,6 +26,7 @@ public class Unseiresult implements Serializable {
     public String birthday;
 
     /** omikujicodeプロパティ */
+    @ManyToOne
     @Column(length = 2147483647, nullable = true, unique = false)
     public String omikujicode;
 

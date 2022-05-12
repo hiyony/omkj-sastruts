@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -23,6 +24,7 @@ import sastruts.omikuji.entity.Omikujii;
 import sastruts.omikuji.entity.Unseiresult;
 import sastruts.omikuji.form.InputForm;
 import sastruts.omikuji.form.OutputForm;
+import sastruts.omikuji.others.Selectunsei;
 import sastruts.omikuji.others.Unsei;
 import sastruts.omikuji.service.FortunemasterService;
 import sastruts.omikuji.service.OmikujiiService;
@@ -43,10 +45,10 @@ public class OutputAction {
 	@Resource
 	private static final String path = "/omkj-sastruts/csvomkj.csv";
 	
-	@Resource
-	private static final String INSERTSQL_FM = "sastruts/omikuji/entity/FortunemasterInsert.sql";
-	private static final String INSERTSQL_OMKJ = "sastruts/omikuji/entity/OmikujiiInsert.sql";
-	private static final String INSERTSQL_UR = "sastruts/omikuji/entity/UnseiresultInsert.sql";
+//	@Resource
+//	private static final String INSERTSQL_FM = "sastruts/omikuji/entity/FortunemasterInsert.sql";
+//	private static final String INSERTSQL_OMKJ = "sastruts/omikuji/entity/OmikujiiInsert.sql";
+//	private static final String INSERTSQL_UR = "sastruts/omikuji/entity/UnseiresultInsert.sql";
 	
 	@SuppressWarnings("resource")
 	@Execute(validator = false)
@@ -60,11 +62,13 @@ public class OutputAction {
 		List <Fortunemaster> fortuneList = fmservice.getselectSQLfromFm(new Fortunemaster());
 		
 		Map<String, String> unseiMap = new HashMap<String, String>();
+		Iterator <Fortunemaster> iterator = fortuneList.iterator();
 		
-		for (Iterator <Fortunemaster> iterator = fortuneList.iterator(); iterator.hasNext();){
+		while (iterator.hasNext()){
 			Fortunemaster fortunemaster = (Fortunemaster) iterator.next();
 			unseiMap.put(fortunemaster.unseiname, fortunemaster.unseicode);
 		}
+		
 		if(unseiMap.isEmpty()){
 			String line;
 			br = new BufferedReader(new FileReader(path));
@@ -77,41 +81,105 @@ public class OutputAction {
 				}
 			}
 			
-			jdbcManager.updateBySqlFile(INSERTSQL_FM).execute();   
+			//jdbcManager.updateBySqlFile(INSERTSQL_FM).execute();   
+			//fortunemaster テーブルに値セットする
 			for (Map.Entry<String, String> entry : unseiMap.entrySet()) {
-				//後でまた試しましょう
+				//直したInsertの部分
+				Fortunemaster fm = new Fortunemaster();
+				fm.unseiname = entry.getKey();
+				fm.unseicode = entry.getValue();
+				fm.renewalwriter = "ヒヨン";
+				fm.renewaldate = OmikujiiDto.todayString;
+				fm.unseiwriter = "ヒヨン";
+				fm.unseiwritedate = OmikujiiDto.todayString;
+				
+				int count = jdbcManager
+						.insert(fm)
+						.execute();
 			}
 		}
 		
 		int cnt = (int) omkjservice.countSQLfromOmkj(new Omikujii());
+		
 		if (cnt == 0){
 			String line;
 			
 			br = new BufferedReader(new FileReader(path));
 			br.readLine();
 			
-			jdbcManager.updateBySqlFile(INSERTSQL_OMKJ).execute();
+			//jdbcManager.updateBySqlFile(INSERTSQL_OMKJ).execute();
 			while ((line = br.readLine()) != null){
-				//後でまた試しましょう
+				//直したInsertの部分
+				Omikujii omkj = new Omikujii();
+				
+				String [] values = line.split(",");
+				
+				omkj.omikujicode = Integer.toString(cnt + 1);
+				omkj.unseicode = unseiMap.get(values[1]);
+				omkj.negaigoto = values[2];
+				omkj.akinai = values[3];
+				omkj.gakumon = values[4];
+				omkj.renewalwriter = "ヒヨン";
+				omkj.renewaldate = OmikujiiDto.todayString;
+				omkj.unseiwriter = "ヒヨン";
+				omkj.unseiwritedate = OmikujiiDto.todayString;
+				cnt++;
+				
+				int count = jdbcManager
+						.insert(omkj)
+						.execute();
 			}
 		}
 		
 		List <Unseiresult> compareList = unseiservice.getcompareSQLfromUr(new Unseiresult());
 		
+		Unseiresult unseirs = new Unseiresult();
+		
+		Iterator<Unseiresult> iterator2 = compareList.iterator();
+		while(iterator2.hasNext()){
+			OmikujiiDto.omikujiID = unseirs.omikujicode; //エラーかも
+		}
+		
+		if(OmikujiiDto.omikujiID.isEmpty()){
+			int rannum = new Random().nextInt(cnt) + 1;
+			OmikujiiDto.omikujiID = String.valueOf(rannum);
+		}
+		
 		List <Omikujii> resultList = omkjservice.getresultSQLfromOmkj(new Omikujii());
+		Iterator <Omikujii> iterator3 = resultList.iterator();
+		
 		Unsei unsei = null;
-		for (Iterator <Omikujii> iterator = resultList.iterator(); iterator.hasNext();){
-			Omikujii omikuji = (Omikujii) iterator.next();
-			//unsei = Selectunsei.selectUnsei(omikuji.unseiname);
+		while (iterator3.hasNext()){
+			Omikujii omkj = (Omikujii) iterator3.next();
+			Fortunemaster fm = new Fortunemaster(); //エラーかも
+			unsei = Selectunsei.selectUnsei(fm.unseiname); //エラーかも
 			unsei.setOmikujicode(OmikujiiDto.omikujiID);
 			unsei.setUnsei();
-			unsei.setNegaigoto(omikuji.negaigoto);
-			unsei.setAkinai(omikuji.akinai);
-			unsei.setGakumon(omikuji.gakumon);
+			unsei.setNegaigoto(omkj.negaigoto);
+			unsei.setAkinai(omkj.akinai);
+			unsei.setGakumon(omkj.gakumon);
 			
-			jdbcManager.updateBySqlFile(INSERTSQL_UR).execute();
-			//後でまた試しましょう
+			//jdbcManager.updateBySqlFile(INSERTSQL_UR).execute();
+			Unseiresult ur = new Unseiresult();
+			
+			ur.uranaidate = OmikujiiDto.todayString;
+			ur.birthday = OmikujiiDto.birthday;
+			ur.omikujicode = OmikujiiDto.omikujiID;
+			ur.renewalwriter = "ヒヨン";
+			ur.renewaldate = OmikujiiDto.todayString;
+			ur.unseiwriter = "ヒヨン";
+			ur.unseiwritedate = OmikujiiDto.todayString;
+			
+			int count = jdbcManager
+					.insert(ur)
+					.execute();
 		}
+		
+		OutputForm.setUnsei(unsei.getUnsei());
+		OutputForm.setNegaigoto(unsei.getNegaigoto());
+		OutputForm.setAkinai(unsei.getAkinai());
+		OutputForm.setGakumon(unsei.getGakumon());
+		
 		return "output.jsp";
 	}
 }

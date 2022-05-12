@@ -1,23 +1,30 @@
+<%@ page import = "sastruts.omikuji.form.OutputForm" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-	String birthday = (String) session.getAttribute("birthday");
-%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Omikuji Web Service</title>
+<style>
+	body {
+		text-align : center;
+	}
+	#list {
+		display : flex;
+		justify-content : center;
+	}
+</style>
 </head>
 <body>
 	<h1>今日の運勢はどうですか？</h1>
-	今日の運勢は「<%= birthday %>」です！
+	今日の運勢は「<%= OutputForm.getUnsei() %>」です！
 	<div id = "list">
 		<ul>
-			<li>願い事 : </li>
-			<li>商い : </li>
-			<li>学問 : </li>
+			<li>願い事 : <%= OutputForm.getNegaigoto() %></li>
+			<li>商い : <%= OutputForm.getAkinai() %></li>
+			<li>学問 : <%= OutputForm.getGakumon() %></li>
 		</ul>
 	</div>
-		<br><input type = "button" value = "戻る" onclick = "location.href = '/omikuji-sastruts/input/'">
+		<br><input type = "button" value = "戻る" onclick = "location.href = '/omkj-sastruts/input/'">
 </body>
 </html>

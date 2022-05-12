@@ -3,9 +3,7 @@ package sastruts.omikuji.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Generated;
 import javax.annotation.Resource;
@@ -27,34 +25,20 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 	//						WHERE uranaidate = ? AND birthday = ?
 	@Resource
 	protected InputForm inputform;
-	
-	@Resource
-	String birthday = inputform.birthday;
-	
-	@Resource
-	public OmikujiiDto omkjdto;
-	
-	@Resource
-	DateFormat df = new SimpleDateFormat("yyyyMMdd");
-	Calendar today = Calendar.getInstance();
-	String todayString = df.format(today);
 
 	//DTO?
 	public List<Unseiresult> getcompareSQLfromUr(Unseiresult result){
+		OmikujiiDto.birthday = inputform.birthday;
+		
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+		Calendar today = Calendar.getInstance();
+		OmikujiiDto.todayString = df.format(today);
+		
 		List <Unseiresult> rs5 = jdbcManager.from(Unseiresult.class)
-				.where("uranaidate = ?", todayString)
-				.where("birthday = ?", birthday)
+				.where("uranaidate = ?", OmikujiiDto.todayString)
+				.where("birthday = ?", OmikujiiDto.birthday)
 				.getResultList();
 		
-		Iterator<Unseiresult> iterator = rs5.iterator();
-		while(iterator.hasNext()){
-			omkjdto.omikujiID = String.valueOf(iterator.next());
-		}
-		
-		if(omkjdto.omikujiID.isEmpty()){
-			int rannum = new Random().nextInt(/*cnt*/) + 1;
-			omkjdto.omikujiID = String.valueOf(rannum);
-		}
 		return rs5;
 	}
 	

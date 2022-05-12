@@ -34,7 +34,7 @@ public class OmikujiiService extends AbstractService<Omikujii> {
 		
 		List <Omikujii> rs6 = jdbcManager.from(Omikujii.class)
 				.innerJoin("fortunemaster")
-				.where("omikujii.omikujicode = ?", omkjdto.omikujiID)
+				.where("omikujii.omikujicode = ?", OmikujiiDto.omikujiID)
 				.getResultList();
 		
 		return rs6;
