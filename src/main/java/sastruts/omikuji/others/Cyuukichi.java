@@ -1,4 +1,6 @@
-package org.seasar.sastruts.omikuji.classes;
+package sastruts.omikuji.others;
+
+import sastruts.omikuji.others.Unsei;
 
 public class Cyuukichi extends Unsei{
     @Override

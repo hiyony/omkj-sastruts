@@ -1,10 +1,12 @@
 package sastruts.omikuji.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  * Fortunemasterエンティティクラス
@@ -39,4 +41,7 @@ public class Fortunemaster implements Serializable {
     /** unseiwritedateプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
     public String unseiwritedate;
+    
+    @OneToMany(mappedBy = "fortunemaster") //???????
+    public List<Omikujii> resultList;
 }

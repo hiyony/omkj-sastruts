@@ -1,4 +1,4 @@
-package org.seasar.sastruts.omikuji.classes;
+package sastruts.omikuji.others;
 
 import java.io.IOException;
 import java.util.ResourceBundle;

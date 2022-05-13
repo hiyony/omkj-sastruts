@@ -24,7 +24,6 @@ import sastruts.omikuji.entity.Omikujii;
 import sastruts.omikuji.entity.Unseiresult;
 import sastruts.omikuji.form.InputForm;
 import sastruts.omikuji.form.OutputForm;
-import sastruts.omikuji.others.Selectunsei;
 import sastruts.omikuji.others.Unsei;
 import sastruts.omikuji.service.FortunemasterService;
 import sastruts.omikuji.service.OmikujiiService;
@@ -131,28 +130,30 @@ public class OutputAction {
 			}
 		}
 		
-		List <Unseiresult> compareList = unseiservice.getcompareSQLfromUr(new Unseiresult());
+		//エンティティーとDTOの連結確認！！！！
+		String omikujiID = String.valueOf(unseiservice.getcompareSQLfromUr(new Unseiresult()));
+		OmikujiiDto.setOmikujiID(omikujiID); 
 		
-		Unseiresult unseirs = new Unseiresult();
-		
-		Iterator<Unseiresult> iterator2 = compareList.iterator();
-		while(iterator2.hasNext()){
-			OmikujiiDto.omikujiID = unseirs.omikujicode; //エラーかも
-		}
-		
-		if(OmikujiiDto.omikujiID.isEmpty()){
+		if(OmikujiiDto.getOmikujiID().isEmpty()){
 			int rannum = new Random().nextInt(cnt) + 1;
-			OmikujiiDto.omikujiID = String.valueOf(rannum);
+			OmikujiiDto.setOmikujiID(String.valueOf(rannum));
 		}
 		
-		List <Omikujii> resultList = omkjservice.getresultSQLfromOmkj(new Omikujii());
-		Iterator <Omikujii> iterator3 = resultList.iterator();
+		//直したい部分
+		Omikujii omikuji = new Omikujii();
+		Fortunemaster fm = new Fortunemaster();
+		Omikujii code = omkjservice.findById(omikuji.unseicode);
+	
+		//Iterator <Omikujii> iterator3 = resultList.iterator();
 		
 		Unsei unsei = null;
 		while (iterator3.hasNext()){
 			Omikujii omkj = (Omikujii) iterator3.next();
-			Fortunemaster fm = new Fortunemaster(); //エラーかも
-			unsei = Selectunsei.selectUnsei(fm.unseiname); //エラーかも
+			//unsei = Selectunsei.selectUnsei(fm.unseiname); //エラーかも
+			//selectUnseiクラスを利用しなくてunseicodeを比べて同じことの場合unseinameを入れる
+			if(fm.unseicode == omkj.unseicode){
+				unsei.setUnsei(fm.unseiname);
+			}
 			unsei.setOmikujicode(OmikujiiDto.omikujiID);
 			unsei.setUnsei();
 			unsei.setNegaigoto(omkj.negaigoto);

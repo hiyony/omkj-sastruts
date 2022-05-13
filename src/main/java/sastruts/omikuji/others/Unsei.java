@@ -1,4 +1,4 @@
-package org.seasar.sastruts.omikuji.classes;
+package sastruts.omikuji.others;
 
 public abstract class Unsei implements Fortune{
     protected String unsei;

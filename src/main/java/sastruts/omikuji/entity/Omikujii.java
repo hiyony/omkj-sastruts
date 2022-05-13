@@ -1,9 +1,12 @@
 package sastruts.omikuji.entity;
 
 import java.io.Serializable;
+
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Omikujiiエンティティクラス
@@ -20,6 +23,7 @@ public class Omikujii implements Serializable {
     public String omikujicode;
 
     /** unseicodeプロパティ */
+    @Id //id追加
     @Column(length = 2147483647, nullable = true, unique = false)
     public String unseicode;
 
@@ -50,4 +54,8 @@ public class Omikujii implements Serializable {
     /** unseiwritedateプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
     public String unseiwritedate;
+    
+    @ManyToOne //ManyToOne追加
+    public Fortunemaster fortunemaster;
+    
 }

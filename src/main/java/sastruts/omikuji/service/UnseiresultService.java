@@ -3,7 +3,6 @@ package sastruts.omikuji.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.annotation.Generated;
 import javax.annotation.Resource;
@@ -27,19 +26,19 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 	protected InputForm inputform;
 
 	//DTO?
-	public List<Unseiresult> getcompareSQLfromUr(Unseiresult result){
+	public Unseiresult getcompareSQLfromUr(Unseiresult result){
 		OmikujiiDto.birthday = inputform.birthday;
 		
 		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Calendar today = Calendar.getInstance();
 		OmikujiiDto.todayString = df.format(today);
 		
-		List <Unseiresult> rs5 = jdbcManager.from(Unseiresult.class)
+		Unseiresult omkjid = jdbcManager.from(Unseiresult.class)
 				.where("uranaidate = ?", OmikujiiDto.todayString)
 				.where("birthday = ?", OmikujiiDto.birthday)
-				.getResultList();
+				.getSingleResult();
 		
-		return rs5;
+		return omkjid;
 	}
 	
 }

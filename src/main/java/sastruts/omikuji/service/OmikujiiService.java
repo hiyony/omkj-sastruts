@@ -1,7 +1,5 @@
 package sastruts.omikuji.service;
 
-import java.util.List;
-
 import javax.annotation.Generated;
 import javax.annotation.Resource;
 
@@ -29,14 +27,28 @@ public class OmikujiiService extends AbstractService<Omikujii> {
 	//ActionResult.java -> SELECT f.unseiname, o.negaigoto, o.akinai, o.gakumon
 	//						 FROM omikujii o JOIN fortunemaster f ON f.unseicode = o.unseicode
 	//						WHERE o.omikujicode = ?
-	//DTO?? 
-	public List <Omikujii> getresultSQLfromOmkj(Omikujii result){
-		
-		List <Omikujii> rs6 = jdbcManager.from(Omikujii.class)
-				.innerJoin("fortunemaster")
-				.where("omikujii.omikujicode = ?", OmikujiiDto.omikujiID)
-				.getResultList();
-		
-		return rs6;
+	
+	public Omikujii findById(String unseicode){
+		return select().id(unseicode).getSingleResult();
 	}
+	
+//	public List<Omikujii> findAllOrderById(){
+//		return select().orderBy(asc(unseicode())).getResultList();
+//	}
+
+
+//	public List <Omikujii> getresultSQLfromOmkj(Omikujii result){
+//		
+//		List <Omikujii> rs6 = jdbcManager.from(Omikujii.class)
+//				.innerJoin("fortunemaster")
+//				.where("omikujii.omikujicode = ?", OmikujiiDto.omikujiID)
+//				.getResultList();
+//		
+////		Omikujii omkjcode = jdbcManager.from(Omikujii.class)
+////				.innerJoin("fortunemaster")
+////				.where("omikujii.omikujicode = ?", OmikujiiDto.omikujiID)
+////				.getSingleResult();
+//		
+//		return rs6;
+//	}
 }

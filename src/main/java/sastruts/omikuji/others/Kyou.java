@@ -1,4 +1,4 @@
-package org.seasar.sastruts.omikuji.classes;
+package sastruts.omikuji.others;
 
 public class Kyou extends Unsei{
     @Override
