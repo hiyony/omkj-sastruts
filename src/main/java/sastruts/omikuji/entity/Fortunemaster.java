@@ -2,10 +2,10 @@ package sastruts.omikuji.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/10 14:44:18")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/18 15:14:22")
 public class Fortunemaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,7 +23,8 @@ public class Fortunemaster implements Serializable {
     public String unseiname;
 
     /** unseicodeプロパティ */
-    @Column(length = 2147483647, nullable = true, unique = false)
+    @Id
+    @Column(length = 2147483647, nullable = false, unique = true)
     public String unseicode;
 
     /** renewalwriterプロパティ */
@@ -41,7 +42,8 @@ public class Fortunemaster implements Serializable {
     /** unseiwritedateプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
     public String unseiwritedate;
-    
-    @OneToMany(mappedBy = "fortunemaster") //???????
-    public List<Omikujii> resultList;
+
+    /** omikujiiList関連プロパティ */
+    @OneToMany(mappedBy = "fortunemaster")
+    public List<Omikujii> omikujiiList;
 }

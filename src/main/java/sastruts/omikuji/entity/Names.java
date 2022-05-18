@@ -9,7 +9,7 @@ import sastruts.omikuji.entity.UnseiresultNames._UnseiresultNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2022/05/10 15:23:01")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2022/05/18 15:14:25")
 public class Names {
 
     /**

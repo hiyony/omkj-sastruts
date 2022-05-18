@@ -1,39 +1,46 @@
 package sastruts.omikuji.service;
 
+import static org.seasar.extension.jdbc.operation.Operations.*;
+import static sastruts.omikuji.entity.FortunemasterNames.*;
+
 import java.util.List;
 
 import javax.annotation.Generated;
-import javax.annotation.Resource;
 
-import sastruts.omikuji.dto.FortunemasterDto;
 import sastruts.omikuji.entity.Fortunemaster;
 
 /**
  * {@link Fortunemaster}のサービスクラスです。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, 
-					date = "2022/05/10 14:44:25")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2022/05/18 15:14:28")
 public class FortunemasterService extends AbstractService<Fortunemaster> {
-	
-	//ActionResult.java -> SELECT unseicode, unseiname FROM fortunemaster
-	@Resource
-	public FortunemasterDto fmdto;
-	
+
 	public List<Fortunemaster> getselectSQLfromFm(Fortunemaster result){
-		//Dtoファイルを使ってSQL文作成する
 		List <Fortunemaster> rs1 = jdbcManager
 				.from(Fortunemaster.class)
-				//.includes("unseiname", "unseicode")
 				.getResultList();
 		
-		//流れるようなインタフェースでMapを組み立てる
-//		List<Fortunemaster> rs1 = jdbcManager.from(Fortunemaster.class)
-//				   .where(
-//						   params("unseiname", fmdto.unseiname)
-//						   .$("unseicode", fmdto.unseicode)
-//						   .$())
-//				   .getResultList();
 		return rs1;
 	}
+	
+    /**
+     * 識別子でエンティティを検索します。
+     * 
+     * @param unseicode
+     *            識別子
+     * @return エンティティ
+     */
+    public Fortunemaster findById(String unseicode) {
+        return select().id(unseicode).getSingleResult();
+    }
+
+    /**
+     * 識別子の昇順ですべてのエンティティを検索します。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<Fortunemaster> findAllOrderById() {
+        return select().orderBy(asc(unseicode())).getResultList();
+    }
 }

@@ -1,54 +1,58 @@
 package sastruts.omikuji.service;
 
-import javax.annotation.Generated;
-import javax.annotation.Resource;
+import static org.seasar.extension.jdbc.operation.Operations.*;
+import static sastruts.omikuji.entity.OmikujiiNames.*;
 
-import sastruts.omikuji.dto.OmikujiiDto;
+import java.util.List;
+
+import javax.annotation.Generated;
+
 import sastruts.omikuji.entity.Omikujii;
 
 /**
  * {@link Omikujii}のサービスクラスです。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, 
-					date = "2022/05/10 14:44:25")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2022/05/18 15:14:29")
 public class OmikujiiService extends AbstractService<Omikujii> {
-	
-	@Resource
-	public OmikujiiDto omkjdto;
-	
-	//ActionResult.java -> SELECT COUNT(*) FROM omikujii
+
 	public long countSQLfromOmkj(Omikujii result){
-		long rs3 = jdbcManager.from(Omikujii.class)
-					.getCount();
+		long rs3 = jdbcManager
+				.from(Omikujii.class)
+				.getCount();
+		
 		return rs3;
 	}
 	
-	//ActionResult.java -> SELECT f.unseiname, o.negaigoto, o.akinai, o.gakumon
-	//						 FROM omikujii o JOIN fortunemaster f ON f.unseicode = o.unseicode
-	//						WHERE o.omikujicode = ?
-	
-	public Omikujii findById(String unseicode){
-		return select().id(unseicode).getSingleResult();
+	public Omikujii getresultSQLfromOmkj(String code){
+		String omkjid = code;
+		
+		Omikujii omkjcode = jdbcManager
+				.from(Omikujii.class)
+				.innerJoin("fortunemaster")
+				.where("T1_.omikujicode = ?", omkjid)
+				.getSingleResult();
+					
+		return omkjcode;
 	}
 	
-//	public List<Omikujii> findAllOrderById(){
-//		return select().orderBy(asc(unseicode())).getResultList();
-//	}
+    /**
+     * 識別子でエンティティを検索します。
+     * 
+     * @param omikujicode
+     *            識別子
+     * @return エンティティ
+     */
+    public Omikujii findById(String omikujicode) {
+        return select().id(omikujicode).getSingleResult();
+    }
 
-
-//	public List <Omikujii> getresultSQLfromOmkj(Omikujii result){
-//		
-//		List <Omikujii> rs6 = jdbcManager.from(Omikujii.class)
-//				.innerJoin("fortunemaster")
-//				.where("omikujii.omikujicode = ?", OmikujiiDto.omikujiID)
-//				.getResultList();
-//		
-////		Omikujii omkjcode = jdbcManager.from(Omikujii.class)
-////				.innerJoin("fortunemaster")
-////				.where("omikujii.omikujicode = ?", OmikujiiDto.omikujiID)
-////				.getSingleResult();
-//		
-//		return rs6;
-//	}
+    /**
+     * 識別子の昇順ですべてのエンティティを検索します。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<Omikujii> findAllOrderById() {
+        return select().orderBy(asc(omikujicode())).getResultList();
+    }
 }

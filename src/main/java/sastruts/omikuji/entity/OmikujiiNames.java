@@ -2,12 +2,14 @@ package sastruts.omikuji.entity;
 
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
+import sastruts.omikuji.entity.FortunemasterNames._FortunemasterNames;
+import sastruts.omikuji.entity.UnseiresultNames._UnseiresultNames;
 
 /**
  * {@link Omikujii}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/05/10 15:23:01")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/05/18 15:14:25")
 public class OmikujiiNames {
 
     /**
@@ -89,6 +91,24 @@ public class OmikujiiNames {
      */
     public static PropertyName<String> unseiwritedate() {
         return new PropertyName<String>("unseiwritedate");
+    }
+
+    /**
+     * fortunemasterのプロパティ名を返します。
+     * 
+     * @return fortunemasterのプロパティ名
+     */
+    public static _FortunemasterNames fortunemaster() {
+        return new _FortunemasterNames("fortunemaster");
+    }
+
+    /**
+     * unseiresultListのプロパティ名を返します。
+     * 
+     * @return unseiresultListのプロパティ名
+     */
+    public static _UnseiresultNames unseiresultList() {
+        return new _UnseiresultNames("unseiresultList");
     }
 
     /**
@@ -203,6 +223,24 @@ public class OmikujiiNames {
          */
         public PropertyName<String> unseiwritedate() {
             return new PropertyName<String>(this, "unseiwritedate");
+        }
+
+        /**
+         * fortunemasterのプロパティ名を返します。
+         * 
+         * @return fortunemasterのプロパティ名
+         */
+        public _FortunemasterNames fortunemaster() {
+            return new _FortunemasterNames(this, "fortunemaster");
+        }
+
+        /**
+         * unseiresultListのプロパティ名を返します。
+         * 
+         * @return unseiresultListのプロパティ名
+         */
+        public _UnseiresultNames unseiresultList() {
+            return new _UnseiresultNames(this, "unseiresultList");
         }
     }
 }

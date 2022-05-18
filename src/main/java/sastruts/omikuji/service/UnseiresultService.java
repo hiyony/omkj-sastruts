@@ -1,44 +1,29 @@
 package sastruts.omikuji.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import javax.annotation.Generated;
-import javax.annotation.Resource;
 
-import sastruts.omikuji.dto.OmikujiiDto;
+import org.seasar.extension.jdbc.where.SimpleWhere;
+
 import sastruts.omikuji.entity.Unseiresult;
-import sastruts.omikuji.form.InputForm;
 
 /**
  * {@link Unseiresult}のサービスクラスです。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, 
-			date = "2022/05/10 14:44:25")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2022/05/18 15:14:29")
 public class UnseiresultService extends AbstractService<Unseiresult> {
-	
-	//ActionResult.java -> SELECT omikujicode, uranaidate, birthday
-	//						 FROM unseiresult
-	//						WHERE uranaidate = ? AND birthday = ?
-	@Resource
-	protected InputForm inputform;
-
-	//DTO?
-	public Unseiresult getcompareSQLfromUr(Unseiresult result){
-		OmikujiiDto.birthday = inputform.birthday;
+	public Unseiresult getcompareSQLfromUr(String todayString, String birthday){
+		String today = todayString;
+		String bday = birthday;
 		
-		DateFormat df = new SimpleDateFormat("yyyyMMdd");
-		Calendar today = Calendar.getInstance();
-		OmikujiiDto.todayString = df.format(today);
-		
-		Unseiresult omkjid = jdbcManager.from(Unseiresult.class)
-				.where("uranaidate = ?", OmikujiiDto.todayString)
-				.where("birthday = ?", OmikujiiDto.birthday)
+		Unseiresult omkjid = jdbcManager
+				.from(Unseiresult.class)
+				.where(
+					new SimpleWhere()
+					.eq("uranaidate", today)
+					.eq("birthday", bday))
 				.getSingleResult();
 		
 		return omkjid;
 	}
-	
 }

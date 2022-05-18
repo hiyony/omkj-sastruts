@@ -15,13 +15,21 @@ public class InputForm implements Serializable{
 	@Required
 	public String birthday;
 
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
 	public ActionErrors validate() {
 		
 		ActionErrors errors = new ActionErrors();
 		Boolean checkbday = Checkbirthday.checkbday(birthday);
 		
 		if(checkbday.equals(false)) {
-			errors.add("", new ActionMessage("errmsg.num", "Error! "));
+			errors.add("", new ActionMessage("errmsg.num", "Error"));
 		}
 		
 		return errors;

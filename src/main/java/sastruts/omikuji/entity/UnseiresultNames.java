@@ -2,12 +2,13 @@ package sastruts.omikuji.entity;
 
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
+import sastruts.omikuji.entity.OmikujiiNames._OmikujiiNames;
 
 /**
  * {@link Unseiresult}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/05/10 15:23:01")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/05/18 15:14:25")
 public class UnseiresultNames {
 
     /**
@@ -71,6 +72,15 @@ public class UnseiresultNames {
      */
     public static PropertyName<String> unseiwritedate() {
         return new PropertyName<String>("unseiwritedate");
+    }
+
+    /**
+     * omikujiiのプロパティ名を返します。
+     * 
+     * @return omikujiiのプロパティ名
+     */
+    public static _OmikujiiNames omikujii() {
+        return new _OmikujiiNames("omikujii");
     }
 
     /**
@@ -167,6 +177,15 @@ public class UnseiresultNames {
          */
         public PropertyName<String> unseiwritedate() {
             return new PropertyName<String>(this, "unseiwritedate");
+        }
+
+        /**
+         * omikujiiのプロパティ名を返します。
+         * 
+         * @return omikujiiのプロパティ名
+         */
+        public _OmikujiiNames omikujii() {
+            return new _OmikujiiNames(this, "omikujii");
         }
     }
 }

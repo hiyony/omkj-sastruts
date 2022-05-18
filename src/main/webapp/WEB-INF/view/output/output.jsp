@@ -16,7 +16,9 @@
 </style>
 </head>
 <body>
+	<% String bday = request.getParameter("birthday"); %>
 	<h1>今日の運勢はどうですか？</h1>
+	誕生日は<%= bday %>です。<br>
 	今日の運勢は「<%= OutputForm.getUnsei() %>」です！
 	<div id = "list">
 		<ul>

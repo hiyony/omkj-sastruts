@@ -1,10 +1,10 @@
 package sastruts.omikuji.entity;
 
 import java.io.Serializable;
-
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/10 14:44:18")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/18 15:14:22")
 public class Unseiresult implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +26,6 @@ public class Unseiresult implements Serializable {
     public String birthday;
 
     /** omikujicodeプロパティ */
-    @ManyToOne
     @Column(length = 2147483647, nullable = true, unique = false)
     public String omikujicode;
 
@@ -45,4 +44,9 @@ public class Unseiresult implements Serializable {
     /** unseiwritedateプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
     public String unseiwritedate;
+
+    /** omikujii関連プロパティ */
+    @ManyToOne
+    @JoinColumn(name = "omikujicode", referencedColumnName = "omikujicode")
+    public Omikujii omikujii;
 }
