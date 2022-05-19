@@ -1,25 +1,68 @@
 package sastruts.omikuji.dto;
 
 public class OmikujiiDto {
-	public static String getOmikujiID() {
-		return omikujiID;
+
+	private String omikuji;
+	private String unseicode;
+	private String negaigoto;
+	private String akinai;
+	private String gakumon;
+
+	public String getOmikuji() {
+		return omikuji;
 	}
-	public static void setOmikujiID(String omikujiID) {
-		OmikujiiDto.omikujiID = omikujiID;
+
+	public void setOmikuji(String omikuji) {
+		this.omikuji = omikuji;
 	}
-	public static String getBirthday() {
-		return birthday;
+
+	public String getUnseicode() {
+		return unseicode;
 	}
-	public static void setBirthday(String birthday) {
-		OmikujiiDto.birthday = birthday;
+
+	public void setUnseicode(String unseicode) {
+		this.unseicode = unseicode;
 	}
-	public static String getTodayString() {
-		return todayString;
+
+	public String getNegaigoto() {
+		return negaigoto;
 	}
-	public static void setTodayString(String todayString) {
-		OmikujiiDto.todayString = todayString;
+
+	public void setNegaigoto(String negaigoto) {
+		this.negaigoto = negaigoto;
 	}
-	public static String omikujiID;
-	public static String birthday;
-	public static String todayString;
+
+	public String getAkinai() {
+		return akinai;
+	}
+
+	public void setAkinai(String akinai) {
+		this.akinai = akinai;
+	}
+
+	public String getGakumon() {
+		return gakumon;
+	}
+
+	public void setGakumon(String gakumon) {
+		this.gakumon = gakumon;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OmikujiiDto [omikujicode=");
+		builder.append(omikuji);
+		builder.append(", unsei=");
+		builder.append(unseicode);
+		builder.append(", negaigoto=");
+		builder.append(negaigoto);
+		builder.append(", akinai=");
+		builder.append(akinai);
+		builder.append(", gakumon=");
+		builder.append(gakumon);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

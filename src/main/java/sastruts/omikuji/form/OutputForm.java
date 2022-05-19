@@ -9,35 +9,35 @@ public class OutputForm implements Serializable{
 	public void setUnsei(){
 	
 	}
-	public static String getUnsei() {
+	public String getUnsei() {
 		return unsei;
 	}
-	public static void setUnsei(String unsei) {
-		OutputForm.unsei = unsei;
+	public void setUnsei(String unsei) {
+		this.unsei = unsei;
 	}
-	public static String getNegaigoto() {
+	public String getNegaigoto() {
 		return negaigoto;
 	}
-	public static void setNegaigoto(String negaigoto) {
-		OutputForm.negaigoto = negaigoto;
+	public void setNegaigoto(String negaigoto) {
+		this.negaigoto = negaigoto;
 	}
-	public static String getAkinai() {
+	public String getAkinai() {
 		return akinai;
 	}
-	public static void setAkinai(String akinai) {
-		OutputForm.akinai = akinai;
+	public void setAkinai(String akinai) {
+		this.akinai = akinai;
 	}
-	public static String getGakumon() {
+	public String getGakumon() {
 		return gakumon;
 	}
-	public static void setGakumon(String gakumon) {
-		OutputForm.gakumon = gakumon;
+	public void setGakumon(String gakumon) {
+		this.gakumon = gakumon;
 	}
 	
-	protected static String unsei;
-	protected static String negaigoto;
-	protected static String akinai;
-	protected static String gakumon;
+	protected String unsei;
+	protected String negaigoto;
+	protected String akinai;
+	protected String gakumon;
 	protected String omikujicode;
 	
 	

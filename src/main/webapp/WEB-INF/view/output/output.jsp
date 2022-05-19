@@ -16,15 +16,18 @@
 </style>
 </head>
 <body>
-	<% String bday = request.getParameter("birthday"); %>
+	<% 
+		String bday = request.getParameter("birthday"); 
+		OutputForm outputForm;
+	%>
 	<h1>今日の運勢はどうですか？</h1>
 	誕生日は<%= bday %>です。<br>
-	今日の運勢は「<%= OutputForm.getUnsei() %>」です！
+	今日の運勢は「${ dto.getOmikuji() }」です！
 	<div id = "list">
 		<ul>
-			<li>願い事 : <%= OutputForm.getNegaigoto() %></li>
-			<li>商い : <%= OutputForm.getAkinai() %></li>
-			<li>学問 : <%= OutputForm.getGakumon() %></li>
+			<li>願い事 : ${ dto.getNegaigoto() }</li>
+			<li>商い : ${ dto.getAkinai() }</li>
+			<li>学問 : ${ dto.getGakumon() }</li>
 		</ul>
 	</div>
 		<br><input type = "button" value = "戻る" onclick = "location.href = '/omkj-sastruts/input/'">

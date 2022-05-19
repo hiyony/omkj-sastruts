@@ -21,6 +21,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.annotation.Required;
 
+import sastruts.omikuji.dto.OmikujiiDto;
 import sastruts.omikuji.entity.Fortunemaster;
 import sastruts.omikuji.entity.Omikujii;
 import sastruts.omikuji.entity.Unseiresult;
@@ -146,23 +147,26 @@ public class OutputAction {
 		}
 		
 		//omikujiIDを受け入れる
-		Unseiresult omkjid = new Unseiresult();
-		omkjid = unseiresultService.getcompareSQLfromUr(todayString, birthday);
+		//Unseiresult omkjid = new Unseiresult();
+		//omkjid = unseiresultService.getcompareSQLfromUr(todayString, birthday);
 		
+		List <Unseiresult> omkjid = unseiresultService.getcompareSQLfromUr(todayString, birthday);
+		
+		Iterator <Unseiresult> it = omkjid.iterator();
 		String omikujiID = null;
 		
-		if(omkjid == null){
+		while(it.hasNext()){
+			Unseiresult unseiresult = (Unseiresult) it.next();
+			omikujiID = unseiresult.omikujicode;
+		}
+		
+		if(omikujiID == null){
 			int rannum = new Random().nextInt(cnt) + 1;
 			omikujiID = String.valueOf(rannum);
 		}
-		else {
-			omikujiID = omkjid.omikujicode;
-		}
-	
 		
-		
-		Omikujii omkjgetcode = omikujiiService.findById(omikujiID);
-		//Omikujii omkjgetcode = omikujiiService.getresultSQLfromOmkj(omikujiID);
+		//Omikujii omkjgetcode = omikujiiService.findById(omikujiID);
+		Omikujii omkjgetcode = omikujiiService.getresultSQLfromOmkj(omikujiID);
 		
 		Unseiresult result = new Unseiresult();
 		result.uranaidate = todayString;
@@ -177,10 +181,12 @@ public class OutputAction {
 				.insert(result)
 				.execute();
 		
-		OutputForm.setUnsei(omkjgetcode.fortunemaster.unseiname);
-		OutputForm.setNegaigoto(omkjgetcode.negaigoto);
-		OutputForm.setAkinai(omkjgetcode.akinai);
-		OutputForm.setGakumon(omkjgetcode.gakumon);
+		OmikujiiDto dto = new OmikujiiDto();
+		dto.setOmikuji(omkjgetcode.fortunemaster.unseiname);
+		dto.setNegaigoto(omkjgetcode.negaigoto);
+		dto.setAkinai(omkjgetcode.akinai);
+		dto.setGakumon(omkjgetcode.gakumon);
+		request.setAttribute("dto", dto);
 	
 //		Iterator <Omikujii> iterator3 = resultList.iterator();
 //		

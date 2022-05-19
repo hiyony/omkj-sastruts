@@ -30,7 +30,7 @@ public class OmikujiiService extends AbstractService<Omikujii> {
 		Omikujii omkjcode = jdbcManager
 				.from(Omikujii.class)
 				.innerJoin("fortunemaster")
-				.where("T1_.omikujicode = ?", omkjid)
+				.where("omikujicode = ?", omkjid)
 				.getSingleResult();
 					
 		return omkjcode;
