@@ -33,12 +33,12 @@
 		<input type = "submit" 
 			   name = "btn"
 			   value = "過去半年の結果リスト"
-			   formaction = "<%= request.getContextPath() %> /HalfAction" 
+			   formaction = "/omkj-sastruts/half/" 
 			   formmethod = "POST" />
 		<input type = "submit"
 			   name = "btn"
 			   value = "過去半年のおみくじ割合" 
-			   formaction = "<%= request.getContextPath() %> /PercentAction"
+			   formaction = "/omkj-sastruts/percent/"
 			   formmethod = "POST" />
 	</s:form>
 </body>

@@ -5,6 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Omikuji Web Service</title>
+<style>
+	body{
+		text-align : center;
+	}
+	table {
+		margin-left : auto;
+		margin-right : auto;
+	}
+</style>
 </head>
 <body>
 	<% String bday = request.getParameter("birthday"); %>
@@ -24,13 +33,13 @@
 		</tr>
 		<logic:iterate id = "HalfDto" name = "list">
 		<tr>
-			<td><bean:write name = "HalfDTO" property = "uranai" format = "yyyy/MM/dd" /></td>
-			<td><bean:write name = "HalfDTO" property = "bday" format = "yyyy/MM/dd" /></td>
-			<td><bean:write name = "HalfDTO" property = "omikujicode" /></td>
-			<td><bean:write name = "HalfDTO" property = "renewalwriter" /></td>
-			<td><bean:write name = "HalfDTO" property = "rndate" format = "yyyy/MM/dd"/></td>
-			<td><bean:write name = "HalfDTO" property = "unseiwriter" /></td>
-			<td><bean:write name = "HalfDTO" property = "usdate" format = "yyyy/MM/dd"/></td>
+			<td><bean:write name = "HalfDto" property = "uranaidate" format = "yyyy/MM/dd" /></td>
+			<td><bean:write name = "HalfDto" property = "birthday" format = "yyyy/MM/dd" /></td>
+			<td><bean:write name = "HalfDto" property = "omikujicode" /></td>
+			<td><bean:write name = "HalfDto" property = "renewalwriter" /></td>
+			<td><bean:write name = "HalfDto" property = "renewaldate" format = "yyyy/MM/dd"/></td>
+			<td><bean:write name = "HalfDto" property = "unseiwriter" /></td>
+			<td><bean:write name = "HalfDto" property = "unseiwritedate" format = "yyyy/MM/dd"/></td>
 		</tr>
 		</logic:iterate>
 	</table>
