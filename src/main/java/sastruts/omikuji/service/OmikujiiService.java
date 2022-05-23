@@ -36,17 +36,6 @@ public class OmikujiiService extends AbstractService<Omikujii> {
 		return omkjcode;
 	}
 	
-	public List <Omikujii> getPercentResultSQL (String birthday){
-		String bday = birthday;
-		
-		List <Omikujii> perres = jdbcManager
-				.selectBySqlFile(Omikujii.class, 
-					"sastruts/omikuji/service/getPercentResultList.sql", bday)
-				.getResultList();
-		
-		return perres;
-	}
-	
     /**
      * 識別子でエンティティを検索します。
      * 

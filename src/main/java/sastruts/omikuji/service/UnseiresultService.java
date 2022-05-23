@@ -29,15 +29,29 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 		return omkjid;
 	}
 	
-	public List <Unseiresult> getHalfyearResultSQL (String birthday) {
+	public List <Unseiresult> getHalfyearResultSQL (String birthday, String checkdate) {
 		String bday = birthday;
+		String chkdate = checkdate;
+		
 		List <Unseiresult> halfres = jdbcManager
-				.selectBySql(Unseiresult.class, "SELECT * FROM unseiresult AS u " +
-												 "WHERE (SELECT CAST (u.uranaidate AS date) AS uradate) " +
-											   "BETWEEN CURRENT_TIMESTAMP - INTERVAL '6 months' AND CURRENT_TIMESTAMP " +
-											       "AND birthday = ? " +
-											  "ORDER BY u.uranaidate ASC", bday)
+				.from(Unseiresult.class)
+				.where(
+					new SimpleWhere()
+					.ge("uranaidate", chkdate)
+					.eq("birthday", bday))
 				.getResultList();
 		return halfres;
 	}
+	
+//	public List <Unseiresult> getHalfyearResultSQL (String birthday) {
+//		String bday = birthday;
+//		List <Unseiresult> halfres = jdbcManager
+//				.selectBySql(Unseiresult.class, "SELECT * FROM unseiresult AS u " +
+//												 "WHERE (SELECT CAST (u.uranaidate AS date) AS uradate) " +
+//											   "BETWEEN CURRENT_TIMESTAMP - INTERVAL '6 months' AND CURRENT_TIMESTAMP " +
+//											       "AND birthday = ? " +
+//											  "ORDER BY u.uranaidate ASC", bday)
+//				.getResultList();
+//		return halfres;
+//	}
 }

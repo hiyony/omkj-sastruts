@@ -4,42 +4,53 @@ import java.io.Serializable;
 
 public class PercentDto implements Serializable{
 	
-	private String unseiname;
-	private Integer cnt;
-	private Integer per;
-	
-	public String getUnseiname() {
-		return unseiname;
+	public String getFortunecode() {
+		return fortunecode;
 	}
 
-	public void setUnseiname(String unseiname) {
-		this.unseiname = unseiname;
+	public void setFortunecode(String fortunecode) {
+		this.fortunecode = fortunecode;
 	}
 
-	public Integer getCnt() {
-		return cnt;
+	public String getFortunename() {
+		return fortunename;
 	}
 
-	public void setCnt(Integer cnt) {
-		this.cnt = cnt;
+	public void setFortunename(String fortunename) {
+		this.fortunename = fortunename;
 	}
 
-	public Integer getPer() {
-		return per;
+	public Integer getFortunecount() {
+		return fortunecount;
 	}
 
-	public void setPer(Integer per) {
-		this.per = per;
+	public void setFortunecount(Integer fortunecount) {
+		this.fortunecount = fortunecount;
 	}
+
+	public Integer getTotalpercent() {
+		return totalpercent;
+	}
+
+	public void setTotalpercent(Integer totalpercent) {
+		this.totalpercent = totalpercent;
+	}
+
+	public String fortunecode;
+	public String fortunename;
+	public Integer fortunecount;
+	public Integer totalpercent;
+
 
 	public PercentDto() {
 		super();
 	}
 	
-	public PercentDto(String unseiname, Integer cnt, Integer per) {
+	public PercentDto(String fortunecode, String fortunename, Integer fortunecount, Integer totalpercent) {
 		super();
-		this.unseiname = unseiname;
-		this.cnt = cnt;
-		this.per = per;
+		this.fortunecode = fortunecode;
+		this.fortunename = fortunename;
+		this.fortunecount = fortunecount;
+		this.totalpercent = totalpercent;
 	}
 }

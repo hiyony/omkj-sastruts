@@ -1,6 +1,6 @@
-SELECT DISTINCT f.unseicode, f.unseiname, r.cnt, r.per
+SELECT DISTINCT f.unseicode AS fortunecode, f.unseiname AS fortunename, r.cnt AS fortunecount, r.per AS totalpercent
   FROM (SELECT u.birthday, f.unseiname AS usname, COUNT(f.unseiname) AS cnt, 
-  			   ROUND((100 * COUNT(f.unseiname) / SUM(COUNT(f.unseiname)) OVER()::numeric), 2) AS per
+  			   ROUND((100 * COUNT(f.unseiname) / SUM(COUNT(f.unseiname)) OVER()::numeric)) AS per
   		  FROM omikujii o
 		 RIGHT OUTER JOIN fortunemaster AS f ON o.unseicode = f.unseicode
 		 RIGHT OUTER JOIN unseiresult AS u ON o.omikujicode = u.omikujicode

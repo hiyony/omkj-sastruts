@@ -1,6 +1,9 @@
 package sastruts.omikuji.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,10 +35,15 @@ public class HalfAction {
 	public String half() {
 		
 		String birthday = request.getParameter("birthday");
+		Calendar cal = new GregorianCalendar();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		
+		cal.add(Calendar.DATE, -182);
+		String checkdate = sdf.format(cal.getTime());
 		
 		List <HalfDto> list = new ArrayList<HalfDto>();
 		
-		List <Unseiresult> halfres = unseiresultService.getHalfyearResultSQL(birthday);
+		List <Unseiresult> halfres = unseiresultService.getHalfyearResultSQL(birthday, checkdate);
 		Iterator <Unseiresult> iterator = halfres.iterator();
 
 		while(iterator.hasNext()){

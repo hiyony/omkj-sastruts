@@ -31,5 +31,15 @@
 		</ul>
 	</div>
 		<br><input type = "button" value = "戻る" onclick = "location.href = '/omkj-sastruts/input/'">
+	<br><br>
+	<hr>
+	<h2>結果を送る！あなたの情報を入力してください〜！</h2>
+	<form>
+		名前 <input type = text name = "name" />
+		郵便番号 <input type = text name = "postnumber" />
+		住所 <input type = text name = "homeaddress" />
+		メールアドレス <input type = text name = "emailaddress" />
+		<input type = "submit" value = "送る" />
+	</form>
 </body>
 </html>
