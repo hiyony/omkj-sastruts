@@ -40,5 +40,33 @@ public class OutputForm implements Serializable{
 	protected String gakumon;
 	protected String omikujicode;
 	
-	
+	public String name;
+	public String postnumber;
+	public String homeaddress;
+	public String emailaddress;
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPostnumber() {
+		return postnumber;
+	}
+	public void setPostnumber(String postnumber) {
+		this.postnumber = postnumber;
+	}
+	public String getHomeaddress() {
+		return homeaddress;
+	}
+	public void setHomeaddress(String homeaddress) {
+		this.homeaddress = homeaddress;
+	}
+	public String getEmailaddress() {
+		return emailaddress;
+	}
+	public void setEmailaddress(String emailaddress) {
+		this.emailaddress = emailaddress;
+	}
 }
