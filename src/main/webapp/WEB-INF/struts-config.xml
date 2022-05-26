@@ -29,11 +29,17 @@
 
 <!-- ===================================== Controller Configuration -->
 
-    <controller
+<!--     <controller
         maxFileSize="1024K"
         bufferSize="1024"
         processorClass="org.seasar.struts.action.S2RequestProcessor"
-        multipartClass="org.seasar.struts.upload.S2MultipartRequestHandler"/>
+        multipartClass="org.seasar.struts.upload.S2MultipartRequestHandler"/> -->
+        
+    <controller
+    	maxFileSize="1024K"
+    	bufferSize="1024"
+    	processorClass="sample.sastruts.json.action.S2JSONRequestProcessor"
+    	multipartClass="org.seasar.struts.upload.S2MultipartRequestHandler"/>
 
 
 <!-- ================================ Message Resources Definitions -->

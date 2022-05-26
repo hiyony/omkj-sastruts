@@ -13,11 +13,15 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.annotation.Required;
+import org.seasar.struts.util.ResponseUtil;
 
+import sastruts.omikuji.dto.InfoDto;
 import sastruts.omikuji.entity.Postinfo;
 import sastruts.omikuji.form.InfoForm;
 import sastruts.omikuji.form.OutputForm;
 import sastruts.omikuji.service.PostinfoService;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class InfoAction {
 	@Required
@@ -72,11 +76,16 @@ public class InfoAction {
 		String zipcode = request.getParameter("postnumber");
 		Postinfo address = postinfoService.getresultSQLfromPinfo(zipcode);
 		String fulladdress = address.homeaddress1 + address.homeaddress2 + address.homeaddress3;
-		infoForm.setFulladdress(fulladdress);  
 		
+		InfoDto dto = new InfoDto();
+		dto.zipcode = zipcode;
+		dto.address = fulladdress;
 		
-		return "info.jsp";
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(dto);
+		ResponseUtil.write(json, "application/json", "Shift_JIS");
+		
+		return null;
 	}
-	
 
 }

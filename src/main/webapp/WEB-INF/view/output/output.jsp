@@ -21,6 +21,42 @@
 		color : red;
 	}
 </style>
+<script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type = "text/javascript">
+	/* Event Handler */
+	function checkNum(){
+		var zipcode = document.getElementById("zipcode").value;
+		var msg = "7文字の郵便番号を入力してください！";
+		if(zipcode.length < 7 || zipcode.length > 7){
+			//document.getElementById("msg").innerHTML = msg;
+			alert('7文字の郵便番号を入力してください！');
+			document.querySelector('#zipcode').value = '';
+		}
+	}
+	
+	function getZipcode(){
+		$("#zipcode").keyup(function(){
+			var code = $("#zipcode").val();
+			
+			if(code == )
+				$.ajax({
+					type :"POST",
+					url : "/info/",
+					datatype : "json",
+					data : { zipcode : address },
+					success :
+			
+		})
+			
+			
+			
+	});
+		
+		
+}
+	
+	
+</script>
 </head>
 <body>
 	<% 
@@ -48,8 +84,7 @@
 		<div id = "sendform">
 			名前 <input type = text name = "name" /><br>
 			郵便番号 〒<input type = text name = "postnumber" 
-							id = "zipcode" onchange = "checkNum();changetoAddress()" />
-					<div id = "msg"></div>
+							id = "zipcode" onchange = "checkNum()" />
 			住所 <input type = text name = "homeaddress" /><br>
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
@@ -59,28 +94,5 @@
 				   formmethod = "POST" />
 		</div>
 	</s:form>
-	
-	<script language = "javascript" type = "text/javascript">
-		/* Event Handler */
-		
-		function checkNum(){
-			var zipcode = document.getElementById("zipcode").value;
-			var msg = "7文字の郵便番号を入力してください！";
-			if(zipcode.length < 7 || zipcode.length > 7){
-				//document.getElementById("msg").innerHTML = msg;
-				alert('7文字の郵便番号を入力してください！');
-				document.querySelector('#zipcode').value = '';
-			}
-		}
-		
-		function changetoAddress(){
-			var zipcode = document.getElementById("zipcode").value;
-			
-			if(zipcode.length == 7){
-				
-			}
-		}
-		
-	</script>
 </body>
 </html>
