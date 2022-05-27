@@ -3,9 +3,11 @@ package sastruts.omikuji.action;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.framework.container.S2Container;
@@ -13,15 +15,12 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.annotation.Required;
-import org.seasar.struts.util.ResponseUtil;
 
 import sastruts.omikuji.dto.InfoDto;
 import sastruts.omikuji.entity.Postinfo;
 import sastruts.omikuji.form.InfoForm;
 import sastruts.omikuji.form.OutputForm;
 import sastruts.omikuji.service.PostinfoService;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class InfoAction {
 	@Required
@@ -37,11 +36,16 @@ public class InfoAction {
 	@Resource
 	protected HttpServletRequest request;
 	
+	@Resource 
+	protected HttpServletResponse response;
+	
 	private static final String path = "/Users/h_kim/Documents/workspace/omkj-sastruts/postnumber.CSV";
 	
 	@SuppressWarnings("resource")
 	@Execute(validator = false)
 	public String info() throws IOException {
+		
+		response.setCharacterEncoding("SHIFT-JIS");
 		
 		SingletonS2ContainerFactory.init();
 		S2Container container = SingletonS2ContainerFactory.getContainer();
@@ -73,17 +77,22 @@ public class InfoAction {
 		}
 		
 		
-		String zipcode = request.getParameter("postnumber");
-		Postinfo address = postinfoService.getresultSQLfromPinfo(zipcode);
-		String fulladdress = address.homeaddress1 + address.homeaddress2 + address.homeaddress3;
+		String zcode = request.getParameter("zcode");
+		Postinfo address = postinfoService.getresultSQLfromPinfo(zcode);
+		String homeaddress = address.homeaddress1 + address.homeaddress2 + address.homeaddress3;
 		
 		InfoDto dto = new InfoDto();
-		dto.zipcode = zipcode;
-		dto.address = fulladdress;
+		dto.zipcode = zcode;
+		dto.address = homeaddress;
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(dto);
-		ResponseUtil.write(json, "application/json", "Shift_JIS");
+//		ObjectMapper mapper = new ObjectMapper();
+//		String json = mapper.writeValueAsString(dto);
+//		ResponseUtil.write(json, "application/json", "Shift_JIS");
+		
+		response.setContentType("application/text; charset=Shift_JIS");
+		
+		PrintWriter writer = response.getWriter();
+		writer.print(homeaddress);
 		
 		return null;
 	}
