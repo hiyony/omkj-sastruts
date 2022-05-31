@@ -7,16 +7,16 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Postinfo}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/05/24 14:50:01")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/05/31 17:03:59")
 public class PostinfoNames {
 
     /**
-     * postnumberのプロパティ名を返します。
+     * zipcodeのプロパティ名を返します。
      * 
-     * @return postnumberのプロパティ名
+     * @return zipcodeのプロパティ名
      */
-    public static PropertyName<String> postnumber() {
-        return new PropertyName<String>("postnumber");
+    public static PropertyName<String> zipcode() {
+        return new PropertyName<String>("zipcode");
     }
 
     /**
@@ -80,12 +80,12 @@ public class PostinfoNames {
         }
 
         /**
-         * postnumberのプロパティ名を返します。
+         * zipcodeのプロパティ名を返します。
          *
-         * @return postnumberのプロパティ名
+         * @return zipcodeのプロパティ名
          */
-        public PropertyName<String> postnumber() {
-            return new PropertyName<String>(this, "postnumber");
+        public PropertyName<String> zipcode() {
+            return new PropertyName<String>(this, "zipcode");
         }
 
         /**

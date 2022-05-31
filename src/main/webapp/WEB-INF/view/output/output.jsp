@@ -49,47 +49,41 @@
 		<div id = "sendform">
 			名前 <input type = text name = "name" /><br>
 			郵便番号 〒<input type = text name = "postnumber" 
-							id = "zipcode" /><br>
-			住所 <input type = text name = "homeaddress" /><br>
+							id = "zipcode" onchange="checkNum();getHomeaddress()" /><br>
+			住所 <input type = text name = "homeaddress"
+							id = "homeaddress" /><br>
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
 				   name = "submitbtn"
 				   value = "確認する" 
-				   formaction = "/omkj-sastruts/info/info.jsp"
+				   formaction = "/omkj-sastruts/print/"
 				   formmethod = "POST" />
 		</div>
 	</s:form>
 	<script type = "text/javascript">
-	$(function(){
-		$("zipcode").on('change', function(){
-			var zipcode = document.getElementById("zipcode").value;
-			
-			if(zipcode.length < 7 || zipcode.length > 7){
-				alert('7文字の郵便番号を入力してください！');
-				document.querySelector('#zipcode').value = '';
-			} else {
-				$.ajax({
-					url: "/info/",
-					type: "POST",
-					data: {zcode : $("#zipcode").val()}
-				}).done(function(result){
-					$("#homeaddress").val(result);
-				}).fail(function(){
-					alert("fail");
-				}).always(function(result){
-				}
-			}
-		});
-	});
-				
-	/* function checkNum(){
+	
+	function getHomeaddress(){
 		var zipcode = document.getElementById("zipcode").value;
-		var msg = "7文字の郵便番号を入力してください！";
-		if(zipcode.length < 7 || zipcode.length > 7){
-			//document.getElementById("msg").innerHTML = msg;
+		$.ajax({
+			url: "http://localhost:8083/omkj-sastruts/info/",
+			type: "POST",
+			data: { zcode : zipcode }
+		}).done(function(homeaddress){
+			$("#homeaddress").val(homeaddress);
+		}).fail(function(){
+			console.log("fail..");
+		}).always(function(){
+			console.log("It works!");
+		});
+	}
+
+				
+	function checkNum(){
+		var zipcode = document.getElementById("zipcode").value;
+		if(zipcode.length != 7){
 			alert('7文字の郵便番号を入力してください！');
 			document.querySelector('#zipcode').value = '';
-		} else {
+		} /* else {
 			$("#zipcode").on('change', function(){		
 				$.ajax({
 					url: "/info/", //서버 측에서 가져올 페이지 
@@ -108,8 +102,32 @@
 					
 				});
 			});
-		}
-	} */	
+		} */
+		
+		/* $(document).ready(function(){
+		$("zipcode").on('keyup', function(){
+			var zipcode = document.getElementById("zipcode").value;
+			console.log(zipcode);
+			if(zipcode.length == 7){
+				$.ajax({
+					url: "http://localhost:8083/omkj-sastruts/info/",
+					type: "POST",
+					data: {zcode : $("#zipcode").val()}
+				}).done(function(result){
+					console.log(result);
+					$("#homeaddress").val(result);
+				}).fail(function(){
+					console.log("fail");
+				}).always(function(result){
+					console.log("It works!");
+				});
+			} else { 
+				alert('7文字の郵便番号を入力してください！');
+				document.querySelector('#zipcode').value = '';
+			}  
+		});
+	}); */
+	} 
 	</script>
 </body>
 </html>

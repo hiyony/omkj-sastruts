@@ -6,28 +6,28 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 /**
- * Postinfoエンティティクラス
+ * Saveエンティティクラス
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/30 17:07:01")
-public class Postinfo implements Serializable {
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/31 17:03:55")
+public class Save implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /** nameプロパティ */
+    @Column(length = 2147483647, nullable = true, unique = false)
+    public String name;
 
     /** zipcodeプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
     public String zipcode;
 
-    /** homeaddress1プロパティ */
+    /** homeaddressプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
-    public String homeaddress1;
+    public String homeaddress;
 
-    /** homeaddress2プロパティ */
+    /** emailaddressプロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
-    public String homeaddress2;
-
-    /** homeaddress3プロパティ */
-    @Column(length = 2147483647, nullable = true, unique = false)
-    public String homeaddress3;
+    public String emailaddress;
 }

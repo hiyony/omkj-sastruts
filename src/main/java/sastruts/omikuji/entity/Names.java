@@ -4,13 +4,14 @@ import javax.annotation.Generated;
 import sastruts.omikuji.entity.FortunemasterNames._FortunemasterNames;
 import sastruts.omikuji.entity.OmikujiiNames._OmikujiiNames;
 import sastruts.omikuji.entity.PostinfoNames._PostinfoNames;
+import sastruts.omikuji.entity.SaveNames._SaveNames;
 import sastruts.omikuji.entity.UnseiresultNames._UnseiresultNames;
 
 /**
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2022/05/24 14:50:01")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2022/05/31 17:03:59")
 public class Names {
 
     /**
@@ -38,6 +39,15 @@ public class Names {
      */
     public static _PostinfoNames postinfo() {
         return new _PostinfoNames();
+    }
+
+    /**
+     * {@link Save}の名前クラスを返します。
+     * 
+     * @return Saveの名前クラス
+     */
+    public static _SaveNames save() {
+        return new _SaveNames();
     }
 
     /**
