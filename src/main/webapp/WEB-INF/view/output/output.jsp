@@ -51,16 +51,59 @@
 			郵便番号 〒<input type = text name = "postnumber" 
 							id = "zipcode" onchange="checkNum();getHomeaddress()" /><br>
 			住所 <input type = text name = "homeaddress"
-							id = "homeaddress" /><br>
+							id = "homeaddress" onchange="getZipcode();autocomplete()" /><br>
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
 				   name = "submitbtn"
-				   value = "確認する" 
-				   formaction = "/omkj-sastruts/print/"
+				   value = "保存する" 
+				   formaction = "/omkj-sastruts/save/"
 				   formmethod = "POST" />
 		</div>
 	</s:form>
 	<script type = "text/javascript">
+	
+	function getZipcode(){
+		var homeaddress = document.getElementById("homeaddress").value;
+			$.ajax({
+				url: "",
+				type: "POST",
+				data: { haddress : homeaddress }
+			}).done(function(zipcode){
+				$("zipcode").val(zipcode);
+			}).fail(function(){
+				console.log("fail..");
+			}).always(function(){
+				console.log("It works!");
+			});
+		}
+	
+	function autocomplete(){
+		var homeaddress = document.getElementById("homeaddress").value;
+		$("#homeaddress").autocomplete({
+			source : function(request, response){
+				$.ajax({
+					url: "",
+					type: "POST",
+					data: { haddress : homeaddress },
+					success: function(data){
+						response(
+							$.map(data, function(item){
+								return {
+									label: item.data,
+									value: item.data
+								}
+							})		
+						);
+					}
+				});
+			},
+			minLength: 2,
+			select: function(event, ui) {
+				//event happen 
+			}
+		});
+	}
+	
 	
 	function getHomeaddress(){
 		var zipcode = document.getElementById("zipcode").value;

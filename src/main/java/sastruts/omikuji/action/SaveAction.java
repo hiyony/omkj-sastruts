@@ -10,11 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.annotation.Required;
 
 import sastruts.omikuji.dto.SaveDto;
+import sastruts.omikuji.entity.Save;
+import sastruts.omikuji.form.SaveForm;
 
 public class SaveAction {
+	@Required
+	@ActionForm
+	protected SaveForm saveForm;
 
 	@Resource
 	protected HttpServletRequest request;
@@ -34,12 +41,19 @@ public class SaveAction {
 		
 		List <SaveDto> list = new ArrayList <SaveDto> ();
 		
-		SaveDto save = new SaveDto();
+		Save save = new Save();
 		save.name = name;
 		save.zipcode = zipcode;
 		save.homeaddress = homeaddress;
 		save.emailaddress = emailaddress;
-		list.add(save);
+		
+		SaveDto saveDto = new SaveDto();
+		saveDto.setName(name);
+		saveDto.setZipcode(zipcode);
+		saveDto.setHomeaddress(homeaddress);
+		saveDto.setEmailaddress(emailaddress);
+		
+		list.add(saveDto);
 		
 		int count = jdbcManager
 				.insert(save)

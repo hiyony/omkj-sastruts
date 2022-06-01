@@ -16,16 +16,12 @@ import org.seasar.struts.annotation.Required;
 import sastruts.omikuji.dto.InfoDto;
 import sastruts.omikuji.entity.Postinfo;
 import sastruts.omikuji.form.InfoForm;
-import sastruts.omikuji.form.OutputForm;
 import sastruts.omikuji.service.PostinfoService;
 
 public class InfoAction {
 	@Required
 	@ActionForm
 	protected InfoForm infoForm;
-	
-	@ActionForm
-	protected OutputForm outputForm;
 	
 	@Resource
 	protected PostinfoService postinfoService;
