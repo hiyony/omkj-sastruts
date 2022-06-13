@@ -51,7 +51,10 @@
 			郵便番号 〒<input type = text name = "postnumber" 
 							id = "zipcode" onchange="checkNum();getHomeaddress()" /><br>
 			住所 <input type = text name = "homeaddress"
-							id = "homeaddress" onchange="getZipcode();autocomplete()" /><br>
+							id = "homeaddress" />
+			<button type = "button"
+					id = "addressbtn">住所を探す</button>
+			<br>
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
 				   name = "submitbtn"
@@ -62,49 +65,17 @@
 	</s:form>
 	<script type = "text/javascript">
 	
-	function getZipcode(){
-		var homeaddress = document.getElementById("homeaddress").value;
-			$.ajax({
-				url: "",
-				type: "POST",
-				data: { haddress : homeaddress }
-			}).done(function(zipcode){
-				$("zipcode").val(zipcode);
-			}).fail(function(){
-				console.log("fail..");
-			}).always(function(){
-				console.log("It works!");
-			});
-		}
-	
-	function autocomplete(){
-		var homeaddress = document.getElementById("homeaddress").value;
-		$("#homeaddress").autocomplete({
-			source : function(request, response){
-				$.ajax({
-					url: "",
-					type: "POST",
-					data: { haddress : homeaddress },
-					success: function(data){
-						response(
-							$.map(data, function(item){
-								return {
-									label: item.data,
-									value: item.data
-								}
-							})		
-						);
-					}
-				});
-			},
-			minLength: 2,
-			select: function(event, ui) {
-				//event happen 
-			}
-		});
-	}
-	
-	
+	$("#addressbtn").click(function(){
+		var ww = 800;
+		var wh = 500;
+		
+		var top = (screen.availHeight - wh) / 2;
+		var left = (screen.availWidth - ww) / 2;
+		
+		window.open("/omkj-sastruts/address/", "window", "width=" + ww +", height=" + wh +", top="+ top 
+				+", left=" + left +", toolbar=no, menubar=no, scrollbars=no, resizable=no");
+	})
+		
 	function getHomeaddress(){
 		var zipcode = document.getElementById("zipcode").value;
 		$.ajax({

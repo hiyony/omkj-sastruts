@@ -26,4 +26,19 @@ public class PostinfoService extends AbstractService<Postinfo> {
 		
 		return address;
 	}
+	
+	public List<Postinfo> getzipcodeSQLfromPinfo(String address1, String address2){
+		String a1 = address1;
+		String a2 = address2;
+		
+		List<Postinfo> zipcode = jdbcManager
+				.from(Postinfo.class)
+				.where(
+					new SimpleWhere()
+					.eq("homeaddress1", a1)
+					.contains("homeaddress2", a2))
+				.getResultList();
+		
+		return zipcode;
+	}
 }

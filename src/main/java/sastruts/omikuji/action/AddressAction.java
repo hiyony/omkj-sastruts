@@ -22,8 +22,6 @@ public class AddressAction {
 	@Execute(validator = false)
 	public String address() {
 		
-		String haddress = request.getParameter("haddress");
-		
-		return null;
+		return "address.jsp";
 	}
 }
