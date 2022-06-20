@@ -27,17 +27,13 @@ public class PostinfoService extends AbstractService<Postinfo> {
 		return address;
 	}
 	
-	public List<Postinfo> getzipcodeSQLfromPinfo(String address1, String address2){
-		String a1 = address1;
-		String a2 = address2;
+	public List<Postinfo> getzipcodeSQLfromPinfo(String homeaddress){
+		String address = homeaddress;
 		
 		List<Postinfo> zipcode = jdbcManager
 				.from(Postinfo.class)
-				.where(
-					new SimpleWhere()
-					.eq("homeaddress1", a1)
-					.contains("homeaddress2", a2))
-				.getResultList();
+				.where("homeaddress1||homeaddress2||homeaddress3 like ?", "%" + address + "%")
+			.getResultList();
 		
 		return zipcode;
 	}
