@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/30 17:07:01")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/06/21 13:39:14")
 public class Postinfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,4 +30,8 @@ public class Postinfo implements Serializable {
     /** homeaddress3プロパティ */
     @Column(length = 2147483647, nullable = true, unique = false)
     public String homeaddress3;
+
+    /** homeaddressプロパティ */
+    @Column(length = 2147483647, nullable = true, unique = false)
+    public String homeaddress;
 }

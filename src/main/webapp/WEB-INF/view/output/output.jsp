@@ -51,9 +51,7 @@
 			郵便番号 〒<input type = text name = "postnumber" 
 							id = "zipcode" onchange="checkNum();getHomeaddress()" /><br>
 			住所 <input type = text name = "homeaddress"
-							id = "homeaddress" />
-			<button type = "button"
-					id = "addressbtn">住所を探す</button>
+							id = "homeaddress" onchange="checkmorethan3();getZipcode()"/>
 			<br>
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
@@ -65,16 +63,28 @@
 	</s:form>
 	<script type = "text/javascript">
 	
-	$("#addressbtn").click(function(){
-		var ww = 800;
-		var wh = 500;
-		
-		var top = (screen.availHeight - wh) / 2;
-		var left = (screen.availWidth - ww) / 2;
-		
-		window.open("/omkj-sastruts/address/", "window", "width=" + ww +", height=" + wh +", top="+ top 
-				+", left=" + left +", toolbar=no, menubar=no, scrollbars=no, resizable=no");
-	})
+	function checkmorethan3(){
+		var address = document.getElementById("homeaddress").value;
+		if(address.length < 3){
+			alert('3文字以上で書いてください！');
+			document.querySelector('#homeaddress').value = '';
+		}
+	}
+	
+	function getZipcode(){
+		var address = document.getElementById("homeaddress").value;
+		$.ajax({
+			url: "http://localhost:8083/omkj-sastruts/getaddress/",
+			type: "POST",
+			data: { address : address}
+		}).done(function(zipcode){
+			$("#zipcode").val(zipcode);
+		}).fail(function(){
+			console.log("fail..");
+		}).always(function(){
+			console.log("It works!");
+		});
+	}
 		
 	function getHomeaddress(){
 		var zipcode = document.getElementById("zipcode").value;

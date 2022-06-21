@@ -8,7 +8,7 @@ import sastruts.omikuji.entity.OmikujiiNames._OmikujiiNames;
  * {@link Unseiresult}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/06/20 17:02:54")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/06/21 13:39:18")
 public class UnseiresultNames {
 
     /**
