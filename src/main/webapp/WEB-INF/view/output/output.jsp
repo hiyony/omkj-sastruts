@@ -20,8 +20,27 @@
 	#msg {
 		color : red;
 	}
+	.modal{
+		background-color : #fff;
+		display : none;
+		width : 350px;
+		padding : 15px;
+		text-align : center;
+		border : 2px solid #333;
+		
+		opacity : 0.8;
+		-moz-border-radius : 6px;
+		-webkit-border-radius: 6px;
+		-moz-box-shadow : 0 0 50px #ccc;
+		-webkit-box-shadow : 0 0 50px #ccc;
+	}
+	
 </style>
 <script src = "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+ 
+
 </head>
 <body>
 	<% 
@@ -50,9 +69,19 @@
 			名前 <input type = text name = "name" /><br>
 			郵便番号 〒<input type = text name = "postnumber" 
 							id = "zipcode" onchange="checkNum();getHomeaddress()" /><br>
-			住所 <input type = text name = "homeaddress"
+			住所 <input type = text name = "homeaddress" class = "js-modalinput" data-modal = "address"
 							id = "homeaddress" onchange="checkmorethan3();getZipcode()"/>
-			<br>
+			<a class = "btn" href = "#addresslist">検索</a><br>
+			
+			<!-- MODAL AREA -->
+			<div id = "addresslist" class= "modal">
+				<h4>住所リストの中であなたの住所を選んでください。</h4>
+				<input type = "radio" name = "addresslist" value = "hey">
+				<input type = "radio" name = "addresslist" value = "안녕">
+				<p><button class="close"> 確定 </button></p>				
+			</div>
+			
+			
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
 				   name = "submitbtn"
@@ -62,6 +91,9 @@
 		</div>
 	</s:form>
 	<script type = "text/javascript">
+	$('a[href = "#addresslist"]').click(function(event){
+		
+	})
 	
 	function checkmorethan3(){
 		var address = document.getElementById("homeaddress").value;
@@ -76,7 +108,18 @@
 		$.ajax({
 			url: "http://localhost:8083/omkj-sastruts/getaddress/",
 			type: "POST",
-			data: { address : address}
+			data: { address : address},
+			statusCode:{
+				200:function(zipcode){
+					if(zipcode==null || zipcode==undefined || zipcode=="null"){
+						alert('WRONG ADDRESS!');
+						document.querySelector('#homeaddress').value = '';
+						document.querySelector('#zipcode').value = '';
+					} else{
+						console.log('200');
+					}
+				}
+			}
 		}).done(function(zipcode){
 			$("#zipcode").val(zipcode);
 		}).fail(function(){
@@ -153,5 +196,6 @@
 	}); */
 	} 
 	</script>
+	
 </body>
 </html>

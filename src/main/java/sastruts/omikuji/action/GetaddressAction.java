@@ -57,9 +57,6 @@ public class GetaddressAction {
 		String replaceaddress = repaddress2.substring(0, index2);
 		
 		
-		//List <GetaddressDto> save = new ArrayList<GetaddressDto>();
-		//List <GetaddressDto> list = new ArrayList<GetaddressDto>();
-		
 		List <Postinfo> zcode = postinfoService.getzipcodeSQLfromPinfo(address1, replaceaddress);
 		
 		Map<String, String> beforeMap = new HashMap<String, String>();
@@ -73,35 +70,8 @@ public class GetaddressAction {
 				Postinfo postinfo = (Postinfo) iterator.next();
 				nowMap.put(postinfo.zipcode, postinfo.homeaddress);
 				
-//				gadto.setZipcode(postinfo.zipcode);
-//				gadto.setHomeaddress(postinfo.homeaddress);
-//				list.add(gadto);
 			}
 			
-//			if(list.size() == 1){
-//				break;
-//			} else if(list.size() > 1){
-//				index2 += 1;
-//				if(address.length() == replaceaddress.length()){
-//					break;
-//				}
-//				replaceaddress = repaddress2.substring(0, index2);
-//				
-//				save.clear();
-//				save.addAll(list);
-//				list.clear();
-//			} else if(list.size() == 0){
-//				replaceaddress = replaceaddress.substring(0, replaceaddress.length()-1);
-//				if(replaceaddress.length() <= address1.length()){
-//					break;
-//				}
-//				if(save.size() > 0){
-//					list.clear();
-//					list.addAll(save);
-//					save.clear();
-//					break;
-//				}
-//			}
 			
 			//1건의 결과가 나왔을 경우
 			if(nowMap.size() == 1){
@@ -132,15 +102,14 @@ public class GetaddressAction {
 		
 		String zipcode = null;
 		String totaladdress = null;
+		GetaddressDto gadto = new GetaddressDto();
+		
 		for(Map.Entry<String, String> entry : nowMap.entrySet()){
 			zipcode = entry.getKey();
 			totaladdress = entry.getValue();
+			gadto.zipcode = zipcode;
+			gadto.homeaddress = totaladdress;
 		}
-
-		GetaddressDto gadto = new GetaddressDto();
-		gadto.zipcode = zipcode;
-		gadto.homeaddress = totaladdress;
-		
 		
 		response.setContentType("application/text; charset=UTF-8");
 		PrintWriter writer = response.getWriter();

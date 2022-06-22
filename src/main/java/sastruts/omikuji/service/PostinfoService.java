@@ -35,7 +35,7 @@ public class PostinfoService extends AbstractService<Postinfo> {
 				.from(Postinfo.class)
 				.where(
 					new SimpleWhere()
-					.like("homeaddress1", address1)
+					.eq("homeaddress1", address1)
 					.contains("homeaddress", address2))
 			.getResultList();
 		
