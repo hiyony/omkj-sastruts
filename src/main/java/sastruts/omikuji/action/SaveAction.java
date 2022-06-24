@@ -2,6 +2,7 @@ package sastruts.omikuji.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,13 +16,18 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.annotation.Required;
 
 import sastruts.omikuji.dto.SaveDto;
+import sastruts.omikuji.dto.SavingDto;
 import sastruts.omikuji.entity.Save;
 import sastruts.omikuji.form.SaveForm;
+import sastruts.omikuji.service.SaveService;
 
 public class SaveAction {
 	@Required
 	@ActionForm
 	protected SaveForm saveForm;
+	
+	@Resource
+	protected SaveService saveService;
 
 	@Resource
 	protected HttpServletRequest request;
@@ -39,7 +45,7 @@ public class SaveAction {
 		String homeaddress = request.getParameter("homeaddress");
 		String emailaddress = request.getParameter("emailaddress");
 		
-		List <SaveDto> list = new ArrayList <SaveDto> ();
+		List <SaveDto> savelist = new ArrayList <SaveDto> ();
 		
 		Save save = new Save();
 		save.name = name;
@@ -53,11 +59,27 @@ public class SaveAction {
 		saveDto.setHomeaddress(homeaddress);
 		saveDto.setEmailaddress(emailaddress);
 		
-		list.add(saveDto);
+		savelist.add(saveDto);
 		
 		int count = jdbcManager
 				.insert(save)
 				.execute();
+		
+		List <SavingDto> list = new ArrayList<SavingDto>();
+		List <Save> result = saveService.getresultjSQLfromSave();
+		Iterator <Save> iterator = result.iterator();
+		
+		while(iterator.hasNext()){
+			Save savings = (Save) iterator.next();
+			SavingDto sdto = new SavingDto();
+			
+			sdto.setName(savings.name);
+			sdto.setZipcode(savings.zipcode);
+			sdto.setHomeaddress(savings.homeaddress);
+			sdto.setEmailaddress(savings.emailaddress);
+			list.add(sdto);
+		}
+		
 		
 		request.setAttribute("list", list);
 		

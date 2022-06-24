@@ -1,4 +1,6 @@
+<%@ taglib uri="/WEB-INF/TLD/struts-logic.tld" prefix="logic" %>
 <%@ page import = "sastruts.omikuji.form.OutputForm" %>
+<%@ page import = "sastruts.omikuji.dto.GetaddressDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,29 +12,45 @@
 		text-align : center;
 	}
 	#sendform {
-		display : block;
+		display : relative;
 		justify-content: center;
 	}
-/* 	#list {
-		display : flex;
-		justify-content : center;
-	} */
 	#msg {
 		color : red;
 	}
+	label{
+		display: block;
+		margin: 20px 0px;
+	}
 	.modal{
-		background-color : #fff;
-		display : none;
-		width : 350px;
-		padding : 15px;
-		text-align : center;
-		border : 2px solid #333;
-		
-		opacity : 0.8;
-		-moz-border-radius : 6px;
-		-webkit-border-radius: 6px;
-		-moz-box-shadow : 0 0 50px #ccc;
-		-webkit-box-shadow : 0 0 50px #ccc;
+		width: 80%;
+		height: 80%;
+		padding: 20px;
+		background: #fff;
+		display: none;
+	}
+	.modal-content{
+		height: 80%;
+		padding: 20px 10px;
+		overflow: hidden;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+	.overlay{
+		display: none;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.7);
+	}
+	.overlay.is-show{
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
 </style>
@@ -46,6 +64,7 @@
 	<% 
 		String bday = request.getParameter("birthday"); 
 		OutputForm outputForm;
+		//GetaddressDto gadto = new GetaddressDto();
 	%>
 	<h1>今日の運勢はどうですか？</h1>
 	誕生日は<%= bday %>です。<br>
@@ -71,17 +90,14 @@
 							id = "zipcode" onchange="checkNum();getHomeaddress()" /><br>
 			住所 <input type = text name = "homeaddress" class = "js-modalinput" data-modal = "address"
 							id = "homeaddress" onchange="checkmorethan3();getZipcode()"/>
-			<a class = "btn" href = "#addresslist">検索</a><br>
 			
 			<!-- MODAL AREA -->
-			<div id = "addresslist" class= "modal">
-				<h4>住所リストの中であなたの住所を選んでください。</h4>
-				<input type = "radio" name = "addresslist" value = "hey">
-				<input type = "radio" name = "addresslist" value = "안녕">
-				<p><button class="close"> 確定 </button></p>				
+			<div id = "js-overlay" class = "overlay">
+				<div id = "modal" class = "js-modal modal"></div>
 			</div>
 			
 			
+			<br>
 			メールアドレス <input type = text name = "emailaddress" /><br><br>
 	 		<input type = "submit" 
 				   name = "submitbtn"
@@ -91,9 +107,6 @@
 		</div>
 	</s:form>
 	<script type = "text/javascript">
-	$('a[href = "#addresslist"]').click(function(event){
-		
-	})
 	
 	function checkmorethan3(){
 		var address = document.getElementById("homeaddress").value;
@@ -103,25 +116,63 @@
 		}
 	}
 	
+	function selectZip(zipcode){
+		document.getElementById('zipcode').value = zipcode;
+		document.getElementById('js-overlay').classList.remove('is-show');
+		document.getElementById('modal').style.display = 'none';
+	}
+	
 	function getZipcode(){
 		var address = document.getElementById("homeaddress").value;
+		var zipcode = "";
 		$.ajax({
 			url: "http://localhost:8083/omkj-sastruts/getaddress/",
 			type: "POST",
-			data: { address : address},
+			data: { address : address },
+			dataType: "json",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			statusCode:{
-				200:function(zipcode){
-					if(zipcode==null || zipcode==undefined || zipcode=="null"){
+				200:function(zipcodelist){
+					var count = Object.keys(zipcodelist).length;
+					if(count === 0){
 						alert('WRONG ADDRESS!');
 						document.querySelector('#homeaddress').value = '';
 						document.querySelector('#zipcode').value = '';
+					} else if(count > 1){
+						console.log('more than 1');
+						/* $(".modal").fadeIn();
+						$(".modal-content").click(function(){
+							$(".modal").fadeOut();
+						}); */
+						
+						var html = '<div class = "modal-content">';
+						for(key in zipcodelist){
+							var htmlParts =  '<label><input type="radio" name="zipcodeList" value="' 
+							+ key + '" onchange="selectZip(' + key + ')">　' + key + "：" + zipcodelist[key] + '<label>';
+							html += htmlParts;
+							
+						}
+						html += "</div>";
+						
+						document.getElementById('modal').innerHTML = html;
+						document.getElementById('js-overlay').classList.add('is-show');
+						document.getElementById('modal').style.display = 'block';
+						
 					} else{
 						console.log('200');
+						for(key in zipcodelist){
+							if(address.includes(zipcodelist[key])){
+								zipcode = JSON.stringify(key);
+								zipcode = zipcode.replaceAll('"', '');
+								console.log(zipcode);
+							}
+						}
+						$("#zipcode").val(zipcode);
 					}
 				}
 			}
-		}).done(function(zipcode){
-			$("#zipcode").val(zipcode);
+		}).done(function(zipcodelist){
+			
 		}).fail(function(){
 			console.log("fail..");
 		}).always(function(){

@@ -2,6 +2,7 @@ package sastruts.omikuji.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.seasar.struts.annotation.Execute;
 
 import sastruts.omikuji.dto.GetaddressDto;
@@ -86,8 +88,8 @@ public class GetaddressAction {
 				beforeMap.clear();
 				beforeMap.putAll(nowMap);
 				nowMap.clear();
-			} else if(nowMap.size() == 0){
-				replaceaddress = replaceaddress.substring(0, replaceaddress.length()-1);
+			} else if(nowMap.size() == 0){ //결과가 나오지 않았을 경우
+				replaceaddress = replaceaddress.substring(0, replaceaddress.length()-1); //길이를 줄여서 재검색
 				if(replaceaddress.length() <= address1.length()){
 					break;
 				}
@@ -99,21 +101,30 @@ public class GetaddressAction {
 				}
 			}
 		}
+		JSONObject json = new JSONObject(nowMap);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		writer.print(json);
 		
 		String zipcode = null;
 		String totaladdress = null;
 		GetaddressDto gadto = new GetaddressDto();
+		List <GetaddressDto> list = new ArrayList <GetaddressDto>();
 		
 		for(Map.Entry<String, String> entry : nowMap.entrySet()){
 			zipcode = entry.getKey();
 			totaladdress = entry.getValue();
-			gadto.zipcode = zipcode;
-			gadto.homeaddress = totaladdress;
+			gadto.setZipcode(zipcode);
+			gadto.setHomeaddress(totaladdress);
+			list.add(gadto);
 		}
 		
-		response.setContentType("application/text; charset=UTF-8");
-		PrintWriter writer = response.getWriter();
-		writer.print(gadto.zipcode);
+		request.setAttribute("list", list);
+//		
+//		response.setContentType("application/text; charset=UTF-8");
+//		PrintWriter writer = response.getWriter();
+//		writer.print(gadto.zipcode);
 		
 		return null;
 	}
