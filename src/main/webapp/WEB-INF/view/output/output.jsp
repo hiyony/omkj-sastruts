@@ -64,7 +64,6 @@
 	<% 
 		String bday = request.getParameter("birthday"); 
 		OutputForm outputForm;
-		//GetaddressDto gadto = new GetaddressDto();
 	%>
 	<h1>今日の運勢はどうですか？</h1>
 	誕生日は<%= bday %>です。<br>
@@ -116,12 +115,18 @@
 		}
 	}
 	
-	function selectZip(zipcode){
+	function selectZip(zipcode, listaddress){
+		if(listaddress.includes("以下に掲載がない場合")){
+			//nothing happens 
+		} else{
+			document.getElementById('homeaddress').value = listaddress;
+		}
 		document.getElementById('zipcode').value = zipcode;
 		document.getElementById('js-overlay').classList.remove('is-show');
 		document.getElementById('modal').style.display = 'none';
 	}
-	
+
+			
 	function getZipcode(){
 		var address = document.getElementById("homeaddress").value;
 		var zipcode = "";
@@ -140,23 +145,44 @@
 						document.querySelector('#zipcode').value = '';
 					} else if(count > 1){
 						console.log('more than 1');
-						/* $(".modal").fadeIn();
-						$(".modal-content").click(function(){
-							$(".modal").fadeOut();
-						}); */
-						
 						var html = '<div class = "modal-content">';
+						var listaddress = "";
 						for(key in zipcodelist){
+							listaddress = zipcodelist[key];
 							var htmlParts =  '<label><input type="radio" name="zipcodeList" value="' 
-							+ key + '" onchange="selectZip(' + key + ')">　' + key + "：" + zipcodelist[key] + '<label>';
+							+ key + '" onchange="selectZip(' + key + ', &quot' + listaddress + '&quot)" />' 
+							+ key + "：" + listaddress + '<label>';
 							html += htmlParts;
-							
 						}
-						html += "</div>";
+						html += '</div>';
 						
 						document.getElementById('modal').innerHTML = html;
 						document.getElementById('js-overlay').classList.add('is-show');
 						document.getElementById('modal').style.display = 'block';
+						
+					/* 	var thisislist = document.getElementsByName("zipcodeList");
+						var value = "";
+						
+						for(var i = 0; i<thisislist.length; i++){
+							console.log(thisislist);
+							if(thisislist[i].checked == true){
+								value = thisislist[i].value;
+							}
+						}
+						console.log("3##2");
+					 	for(var i = 0; i < zipcodelist.size; i++){
+							console.log("!!!!!!");
+							
+							if(value === zipcodelist[i].key){
+								var selectaddress = zipcodelist[i].value;
+								$("#homeaddress").val(selectaddress);
+							} else if(zipcodelist[i].value.includes("以下に掲載がない場合")){
+								//nothing changes 
+								console.log("nothing is behind of address!");
+							} else{
+								console.log("nothing happens!");
+							}
+						} */
 						
 					} else{
 						console.log('200');
@@ -201,50 +227,7 @@
 		if(zipcode.length != 7){
 			alert('7文字の郵便番号を入力してください！');
 			document.querySelector('#zipcode').value = '';
-		} /* else {
-			$("#zipcode").on('change', function(){		
-				$.ajax({
-					url: "/info/", //서버 측에서 가져올 페이지 
-					type: "POST", //GET 또는 POST 
-					data: {
-					zipcode : $("#zipcode").val() //서버 측에 전달할 파라미터 
-					//homeaddress : homeaddress 
-				},  
-					datatype: "text" //html, javascript, text, xml, json 등이 있음 
-									 //받아올 데이터의 데이터타입 
-				}).done(function(result){
-					$("#homeaddress").load(result);
-				}).fail(function(){
-					alert("失敗！！！！！");
-				}).always(function(result){
-					
-				});
-			});
-		} */
-		
-		/* $(document).ready(function(){
-		$("zipcode").on('keyup', function(){
-			var zipcode = document.getElementById("zipcode").value;
-			console.log(zipcode);
-			if(zipcode.length == 7){
-				$.ajax({
-					url: "http://localhost:8083/omkj-sastruts/info/",
-					type: "POST",
-					data: {zcode : $("#zipcode").val()}
-				}).done(function(result){
-					console.log(result);
-					$("#homeaddress").val(result);
-				}).fail(function(){
-					console.log("fail");
-				}).always(function(result){
-					console.log("It works!");
-				});
-			} else { 
-				alert('7文字の郵便番号を入力してください！');
-				document.querySelector('#zipcode').value = '';
-			}  
-		});
-	}); */
+		} 
 	} 
 	</script>
 	

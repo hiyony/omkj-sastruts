@@ -1,6 +1,17 @@
 package sastruts.omikuji.others;
 
+/**
+ * 運勢をセットします。
+ * @author h_kim
+ * @version 1.0
+ */
 public class Selectunsei {
+	
+	/**
+	 * 六つの運勢中で一つをセットします。
+	 * @param unseistr
+	 * @return 選択された運勢 fortune
+	 */
 	public static Unsei selectUnsei(String unseistr){
 		Unsei fortune = null;
 		

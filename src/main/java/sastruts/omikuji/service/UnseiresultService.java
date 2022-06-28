@@ -15,6 +15,14 @@ import sastruts.omikuji.entity.Unseiresult;
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, 
 		date = "2022/05/18 15:14:29")
 public class UnseiresultService extends AbstractService<Unseiresult> {
+	
+	/**
+	 * 過去のおみくじ履歴に同じ日付と誕生日がある場合、同じ結果を検索します。
+	 * @param todayString
+	 * @param birthday
+	 * @return SQL文の結果リスト　omkjid
+	 */
+	
 	public List <Unseiresult> getcompareSQLfromUr(String todayString, String birthday){
 		String today = todayString;
 		String bday = birthday;
@@ -28,6 +36,13 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 				.getResultList();
 		return omkjid;
 	}
+	
+	/**
+	 * 半年前の日付とお誕生日を条件で使っておみくじ結果を検索します。
+	 * @param birthday
+	 * @param checkdate
+	 * @return SQL文の結果リスト halfres
+	 */
 	
 	public List <Unseiresult> getHalfyearResultSQL (String birthday, String checkdate) {
 		String bday = birthday;

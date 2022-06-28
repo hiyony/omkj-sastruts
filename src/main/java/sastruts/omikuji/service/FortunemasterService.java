@@ -16,6 +16,12 @@ import sastruts.omikuji.entity.Fortunemaster;
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2022/05/18 15:14:28")
 public class FortunemasterService extends AbstractService<Fortunemaster> {
 
+	/**
+	 * fortunemasterテーブルから運勢コードと運勢名を検索するためのSQL文です。
+	 * @param result
+	 * @return SQLの検索結果リスト rs1
+	 */
+	
 	public List<Fortunemaster> getselectSQLfromFm(Fortunemaster result){
 		List <Fortunemaster> rs1 = jdbcManager
 				.from(Fortunemaster.class)

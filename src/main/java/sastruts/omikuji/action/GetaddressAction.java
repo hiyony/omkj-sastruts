@@ -19,6 +19,14 @@ import sastruts.omikuji.dto.GetaddressDto;
 import sastruts.omikuji.entity.Postinfo;
 import sastruts.omikuji.service.PostinfoService;
 
+/**
+ * Company Practice
+ * 郵便番号自動入力システムです。
+ * → 住所から郵便番号を取得する
+ * @author h_kim
+ * @version 1.0
+ */
+
 public class GetaddressAction {
 	
 	@Resource
@@ -30,13 +38,21 @@ public class GetaddressAction {
 	@Resource
 	protected HttpServletResponse response;
 	
+	/**
+	 * 住所から郵便番号を検索する処理。
+	 * →　入力された住所を都道府県、市区町村などの基準で切って郵便番号を検索
+	 * @return null
+	 * @throws IOException
+	 */
+	
 	@Execute(validator = false)
 	public String getaddress() throws IOException {
 		
+		//入力された住所を取得する
 		String address = request.getParameter("address");
 		
-		//都道府県
 		String repaddress1 = address.replaceAll("[都道府県]", "#");
+		//都道府県を取得して、無ければリターンする
 		int index1 = repaddress1.indexOf("#", 2);
 		if(index1 == -1){
 			return null;
@@ -53,11 +69,9 @@ public class GetaddressAction {
 			index2 += 3;
 		}
 		
-		//表記揺れ
 		String repaddress2 = address.replaceAll("[ヶが]", "ケ");
 		repaddress2 = address.replaceAll("[ノ之乃]", "の");
 		String replaceaddress = repaddress2.substring(0, index2);
-		
 		
 		List <Postinfo> zcode = postinfoService.getzipcodeSQLfromPinfo(address1, replaceaddress);
 		
@@ -73,7 +87,6 @@ public class GetaddressAction {
 				nowMap.put(postinfo.zipcode, postinfo.homeaddress);
 				
 			}
-			
 			
 			//1건의 결과가 나왔을 경우
 			if(nowMap.size() == 1){
@@ -121,10 +134,7 @@ public class GetaddressAction {
 		}
 		
 		request.setAttribute("list", list);
-//		
-//		response.setContentType("application/text; charset=UTF-8");
-//		PrintWriter writer = response.getWriter();
-//		writer.print(gadto.zipcode);
+
 		
 		return null;
 	}

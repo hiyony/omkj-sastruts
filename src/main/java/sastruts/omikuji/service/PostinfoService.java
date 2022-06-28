@@ -14,6 +14,13 @@ import sastruts.omikuji.entity.Postinfo;
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2022/05/30 17:07:09")
 public class PostinfoService extends AbstractService<Postinfo> {
+	
+	/**
+	 * 郵便番号を使って住所を検索します。
+	 * @param zipcode
+	 * @return SQL文の結果リスト　address
+	 */
+	
 	public List<Postinfo> getresultSQLfromPinfo(String zipcode){
 		String zcode = zipcode;
 		
@@ -26,6 +33,13 @@ public class PostinfoService extends AbstractService<Postinfo> {
 		
 		return address;
 	}
+	
+	/**
+	 * 都道府県などで区分された住所をSQL文の条件で検索します。
+	 * @param homeaddress
+	 * @param replaceaddress
+	 * @return SQL文の結果リスト　zipcode
+	 */
 	
 	public List<Postinfo> getzipcodeSQLfromPinfo(String homeaddress, String replaceaddress){
 		String address1 = homeaddress;

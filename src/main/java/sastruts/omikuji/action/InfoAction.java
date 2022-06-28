@@ -18,6 +18,14 @@ import sastruts.omikuji.entity.Postinfo;
 import sastruts.omikuji.form.InfoForm;
 import sastruts.omikuji.service.PostinfoService;
 
+/**
+ * Company Practice
+ * 住所自動入力システムです。
+ * →　郵便番号から住所を取得する
+ * @author h_kim
+ * @version 1.0
+ */
+
 public class InfoAction {
 	@Required
 	@ActionForm
@@ -31,6 +39,13 @@ public class InfoAction {
 	
 	@Resource 
 	protected HttpServletResponse response;
+	
+	/**
+	 * 郵便番号から住所を検索する処理。
+	 * →　入力された郵便番号を受けて、その郵便番号を使って住所を検索
+	 * @return null
+	 * @throws IOException
+	 */
 	
 	@Execute(validator = false)
 	public String info() throws IOException {

@@ -19,6 +19,14 @@ import sastruts.omikuji.entity.Unseiresult;
 import sastruts.omikuji.form.HalfForm;
 import sastruts.omikuji.service.UnseiresultService;
 
+/**
+ * Company Practice
+ * おみくじの半年前からの結果を検索システムです。
+ * 
+ * @author h_kim
+ * @version 1.0
+ */
+
 public class HalfAction {
 	
 	@Required
@@ -30,6 +38,12 @@ public class HalfAction {
 	
 	@Resource
 	protected HttpServletRequest request;
+	
+	/**
+	 * 半年前の結果から今日の結果まで検索。s
+	 * →　今日の日付から半年前の日付を計算して結果をリストに入れる
+	 * @return half.jsp
+	 */
 	
 	@Execute(validator = false)
 	public String half() {

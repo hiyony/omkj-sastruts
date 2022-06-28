@@ -21,6 +21,13 @@ import sastruts.omikuji.entity.Save;
 import sastruts.omikuji.form.SaveForm;
 import sastruts.omikuji.service.SaveService;
 
+/**
+ * Company Practice
+ * 個人情報保存システムです。
+ * @author h_kim
+ * @version 1.0
+ */
+
 public class SaveAction {
 	@Required
 	@ActionForm
@@ -31,6 +38,12 @@ public class SaveAction {
 
 	@Resource
 	protected HttpServletRequest request;
+	
+	/**
+	 * 入力された名前、郵便番号、住所、メールアドレスをデータベースに保存して画面に出力する。
+	 * @return save.jsp
+	 * @throws IOException
+	 */
 	
 	@Execute(validator = false)
 	public String save() throws IOException {

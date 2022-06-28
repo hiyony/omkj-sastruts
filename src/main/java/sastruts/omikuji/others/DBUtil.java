@@ -1,11 +1,20 @@
-package org.seasar.sastruts.omikuji.classes;
+package sastruts.omikuji.others;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * データベースを連結します。
+ * @author h_kim
+ * @version 1.0
+ */
 public class DBUtil {
 
+	/**
+	 * データベースドライバーでPostgresqlDBを連結します。
+	 * @return Connection conn
+	 */
     public static Connection getConnection() {
         String server = "jdbc:postgresql://localhost:5432/omikuji";
         String user_name = "root";

@@ -31,6 +31,14 @@ import sastruts.omikuji.service.FortunemasterService;
 import sastruts.omikuji.service.OmikujiiService;
 import sastruts.omikuji.service.UnseiresultService;
 
+/**
+ * Company Practice
+ * おみくじ結果を検索システムです。
+ * 
+ * @author h_kim
+ * @version 1.0
+ */
+
 public class OutputAction {
 	
 	@Required
@@ -52,13 +60,17 @@ public class OutputAction {
 	
 	@Resource
 	protected HttpServletRequest request;
-
+	
+	/**
+	 * おみくじの内容が入っているCSVファイル。
+	 */
 	private static final String path = "/omkj-sastruts/csvomkj.csv";
 	
-//	@Resource
-//	private static final String INSERTSQL_FM = "sastruts/omikuji/entity/FortunemasterInsert.sql";
-//	private static final String INSERTSQL_OMKJ = "sastruts/omikuji/entity/OmikujiiInsert.sql";
-//	private static final String INSERTSQL_UR = "sastruts/omikuji/entity/UnseiresultInsert.sql";
+	/**
+	 * 入力されたお誕生日を取得してCSVファイルからおみくじの結果をランダムで出力する。
+	 * @return output.jsp
+	 * @throws IOException
+	 */
 	
 	@SuppressWarnings("resource")
 	@Execute(validator = false)
@@ -187,38 +199,6 @@ public class OutputAction {
 		dto.setAkinai(omkjgetcode.akinai);
 		dto.setGakumon(omkjgetcode.gakumon);
 		request.setAttribute("dto", dto);
-	
-//		Iterator <Omikujii> iterator3 = resultList.iterator();
-//		
-//		Unsei unsei = null;
-//		while (iterator3.hasNext()){
-//			Omikujii omkj = (Omikujii) iterator3.next();
-//			//unsei = Selectunsei.selectUnsei(fm.unseiname); //エラーかも
-//			//selectUnseiクラスを利用しなくてunseicodeを比べて同じことの場合unseinameを入れる
-//			if(fm.unseicode == omkj.unseicode){
-//				unsei.setUnsei(fm.unseiname);
-//			}
-//			unsei.setOmikujicode(OmikujiiDto.omikujiID);
-//			unsei.setUnsei();
-//			unsei.setNegaigoto(omkj.negaigoto);
-//			unsei.setAkinai(omkj.akinai);
-//			unsei.setGakumon(omkj.gakumon);
-//			
-//			//jdbcManager.updateBySqlFile(INSERTSQL_UR).execute();
-//			Unseiresult ur = new Unseiresult();
-//			
-//			ur.uranaidate = OmikujiiDto.todayString;
-//			ur.birthday = OmikujiiDto.birthday;
-//			ur.omikujicode = OmikujiiDto.omikujiID;
-//			ur.renewalwriter = "ヒヨン";
-//			ur.renewaldate = OmikujiiDto.todayString;
-//			ur.unseiwriter = "ヒヨン";
-//			ur.unseiwritedate = OmikujiiDto.todayString;
-//			
-//			int count = jdbcManager
-//					.insert(ur)
-//					.execute();
-//		}
 		
 		
 		return "output.jsp";

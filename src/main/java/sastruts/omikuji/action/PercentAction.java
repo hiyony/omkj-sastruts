@@ -19,6 +19,13 @@ import sastruts.omikuji.dto.PercentResDto;
 import sastruts.omikuji.form.PercentForm;
 import sastruts.omikuji.service.OmikujiiService;
 
+/**
+ * Company Practice
+ * 今までのおみくじ割合システムです。
+ * @author h_kim
+ * @version 1.0
+ */
+
 public class PercentAction {
 	
 	@Required
@@ -30,6 +37,11 @@ public class PercentAction {
 	
 	@Resource
 	protected HttpServletRequest request;
+	
+	/**
+	 * 入力されたお誕生日に関して今までのおみくじ割合を計算して画面に出力する。
+	 * @return percent.jsp
+	 */
 	
 	@Execute(validator = false)
 	public String percent() {
