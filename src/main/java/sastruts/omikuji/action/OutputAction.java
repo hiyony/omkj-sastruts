@@ -33,7 +33,7 @@ import sastruts.omikuji.service.UnseiresultService;
 
 /**
  * Company Practice
- * おみくじ結果を検索システムです。
+ * おみくじ結果を検索するクラスです。
  * 
  * @author h_kim
  * @version 1.0
@@ -41,33 +41,51 @@ import sastruts.omikuji.service.UnseiresultService;
 
 public class OutputAction {
 	
+	/**
+	 * Actionの内に使用されるフォームです。
+	 */
 	@Required
 	@ActionForm
 	protected OutputForm outputForm;
 	
+	/**
+	 * Actionの内に使用されるフォームです。
+	 */
 	@Required
 	@ActionForm
 	protected InputForm inputForm;
 	
+	/**
+	 * Actionの内に使用されるSQL文処理のサービスファイルです。
+	 */
 	@Resource
 	protected FortunemasterService fortunemasterService;
 	
+	/**
+	 * Actionの内に使用されるSQL文処理のサービスファイルです。
+	 */
 	@Resource
 	protected OmikujiiService omikujiiService;
 	
+	/**
+	 * Actionの内に使用されるSQL文処理のサービスファイルです。
+	 */
 	@Resource
 	protected UnseiresultService unseiresultService;
 	
+	/**
+	 * サーブレットにRequest要請します。
+	 */
 	@Resource
 	protected HttpServletRequest request;
 	
 	/**
-	 * おみくじの内容が入っているCSVファイル。
+	 * おみくじの内容が入っているCSVファイルです。
 	 */
 	private static final String path = "/omkj-sastruts/csvomkj.csv";
 	
 	/**
-	 * 入力されたお誕生日を取得してCSVファイルからおみくじの結果をランダムで出力する。
+	 * 入力されたお誕生日を取得してCSVファイルからおみくじの結果をランダムで出力します。
 	 * @return output.jsp
 	 * @throws IOException
 	 */
