@@ -47,11 +47,10 @@ public class GetaddressAction {
 	 * 入力パラメーターはrequestから取得する。
 	 * 結果が一件か複数件かによって検索するための文字列の長さを調節し処理する。
 	 * 
-	 * @return null
 	 * @throws IOException
 	 */
 	@Execute(validator = false)
-	public String getaddress() throws IOException {
+	public void getaddress() throws IOException {
 		
 		//入力された住所を取得する
 		String address = request.getParameter("address");
@@ -60,7 +59,7 @@ public class GetaddressAction {
 		//都道府県を取得して、無ければリターンする
 		int index1 = repaddress1.indexOf("#", 2);
 		if(index1 == -1){
-			return null;
+			return;
 		}
 		String address1 = address.substring(0, index1+1);
 		
@@ -140,7 +139,5 @@ public class GetaddressAction {
 		
 		request.setAttribute("list", list);
 
-		
-		return null;
 	}
 }

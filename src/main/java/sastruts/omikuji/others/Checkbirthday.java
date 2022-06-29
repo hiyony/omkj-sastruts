@@ -14,7 +14,7 @@ public class Checkbirthday {
 	/**
 	 * 正しい方式(yyyyMMdd)で入力されているかをチェックします。
 	 * 
-	 * @param bday
+	 * @param bday　誕生日
 	 * @return boolean
 	 */
 	public static Boolean checkbday(String bday) {

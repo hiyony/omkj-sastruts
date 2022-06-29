@@ -9,7 +9,7 @@ public class Selectunsei {
 	
 	/**
 	 * 六つの運勢中で一つをセットします。
-	 * @param unseistr
+	 * @param unseistr 運勢名
 	 * @return 選択された運勢 fortune
 	 */
 	public static Unsei selectUnsei(String unseistr){

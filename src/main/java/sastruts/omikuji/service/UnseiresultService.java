@@ -21,8 +21,8 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 	/**
 	 * 過去のおみくじ結果に同じ日付と誕生日がある場合、同じ結果を検索するクラスです。
 	 * 
-	 * @param todayString
-	 * @param birthday
+	 * @param todayString　今日の日付
+	 * @param birthday　誕生日
 	 * @return SQL文の結果リスト　
 	 */
 	public List <Unseiresult> getcompareSQLfromUr(String todayString, String birthday){
@@ -42,8 +42,8 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 	/**
 	 * 半年前の日付とお誕生日を条件で使っておみくじ結果を検索するクラスです。
 	 * 
-	 * @param birthday
-	 * @param checkdate
+	 * @param birthday　誕生日
+	 * @param checkdate　半年前の日付
 	 * @return SQL文の結果リスト halfres
 	 */
 	public List <Unseiresult> getHalfyearResultSQL (String birthday, String checkdate) {

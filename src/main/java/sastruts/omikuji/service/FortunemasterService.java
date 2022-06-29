@@ -21,7 +21,7 @@ public class FortunemasterService extends AbstractService<Fortunemaster> {
 	/**
 	 * fortunemasterテーブルから運勢コードと運勢名を検索するクラスです。
 	 * 
-	 * @param result
+	 * @param result　Fortunemasterテーブル
 	 * @return SQLの検索結果リスト
 	 */
 	public List<Fortunemaster> getselectSQLfromFm(Fortunemaster result){

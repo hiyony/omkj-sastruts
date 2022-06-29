@@ -20,7 +20,7 @@ public class PostinfoService extends AbstractService<Postinfo> {
 	/**
 	 * 郵便番号を使用して住所を検索するクラスです。
 	 * 
-	 * @param zipcode
+	 * @param zipcode　郵便番号
 	 * @return SQL文の結果リスト
 	 */
 	public List<Postinfo> getresultSQLfromPinfo(String zipcode){
@@ -39,8 +39,8 @@ public class PostinfoService extends AbstractService<Postinfo> {
 	/**
 	 * 都道府県などで区分された住所をSQL文の条件で検索するクラスです。
 	 * 
-	 * @param homeaddress
-	 * @param replaceaddress
+	 * @param homeaddress　都道府県
+	 * @param replaceaddress　表記揺れを直した住所
 	 * @return SQL文の結果リスト
 	 */
 	public List<Postinfo> getzipcodeSQLfromPinfo(String homeaddress, String replaceaddress){

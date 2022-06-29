@@ -22,7 +22,7 @@ public class OmikujiiService extends AbstractService<Omikujii> {
 	/**
 	 * Omikujiiテーブルのデータ数を数えるクラスです。
 	 * 
-	 * @param result
+	 * @param result Omikujiiテーブル
 	 * @return SQL文の結果
 	 */
 	public long countSQLfromOmkj(Omikujii result){
@@ -36,7 +36,7 @@ public class OmikujiiService extends AbstractService<Omikujii> {
 	/**
 	 * ランダムで選んだおみくじコードを使用して運勢を検索するクラスです。
 	 * 
-	 * @param code
+	 * @param code　おみくじID
 	 * @return SQL文の結果リスト
 	 */
 	public Omikujii getresultSQLfromOmkj(String code){
