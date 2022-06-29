@@ -10,18 +10,16 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-import org.seasar.struts.annotation.Required;
 
 import sastruts.omikuji.dto.HalfDto;
 import sastruts.omikuji.entity.Unseiresult;
-import sastruts.omikuji.form.HalfForm;
 import sastruts.omikuji.service.UnseiresultService;
 
 /**
- * Company Practice
- * おみくじの半年前からの結果を検索システムです。
+ * 半年分の結果取得Actionクラス。
+ * Actionクラス、画面からの要求を制御するコントローラークラス。
+ * おみくじの半年前からの結果を一覧形式で取得します。
  * 
  * @author h_kim
  * @version 1.0
@@ -29,22 +27,21 @@ import sastruts.omikuji.service.UnseiresultService;
 
 public class HalfAction {
 	
-	@Required
-	@ActionForm
-	protected HalfForm halfForm;
-	
+	/** Serviceクラス */
 	@Resource
 	protected UnseiresultService unseiresultService;
 	
+	/** HTTPリクエスト */
 	@Resource
 	protected HttpServletRequest request;
 	
 	/**
-	 * 半年前の結果から今日の結果まで検索。s
-	 * →　今日の日付から半年前の日付を計算して結果をリストに入れる
+	 * 半年前の結果から今日の結果まで検索しリストを取得する。
+	 * 入力パラメーターはrequestから取得をする (yyyyMMdd方式)
+	 * 　入力パラメーターの日付から過去半年は自動的に計算し処理する。
+	 * 
 	 * @return half.jsp
 	 */
-	
 	@Execute(validator = false)
 	public String half() {
 		
@@ -52,7 +49,7 @@ public class HalfAction {
 		Calendar cal = new GregorianCalendar();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		
-		cal.add(Calendar.DATE, -182);
+		cal.add(Calendar.MONTH, -6);
 		String checkdate = sdf.format(cal.getTime());
 		
 		List <HalfDto> list = new ArrayList<HalfDto>();

@@ -1,13 +1,17 @@
 package sastruts.omikuji.entity;
 
 import javax.annotation.Generated;
+
 import org.seasar.extension.jdbc.name.PropertyName;
+
 import sastruts.omikuji.entity.FortunemasterNames._FortunemasterNames;
 import sastruts.omikuji.entity.UnseiresultNames._UnseiresultNames;
 
 /**
  * {@link Omikujii}のプロパティ名の集合です。
  * 
+ * @author h_kim
+ * @version 1.0
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/06/21 13:39:18")
 public class OmikujiiNames {

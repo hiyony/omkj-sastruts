@@ -12,16 +12,18 @@ import sastruts.omikuji.entity.Fortunemaster;
 /**
  * {@link Fortunemaster}のサービスクラスです。
  * 
+ * @author h_kim
+ * @version 1.0
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2022/05/18 15:14:28")
 public class FortunemasterService extends AbstractService<Fortunemaster> {
 
 	/**
-	 * fortunemasterテーブルから運勢コードと運勢名を検索するためのSQL文です。
+	 * fortunemasterテーブルから運勢コードと運勢名を検索するクラスです。
+	 * 
 	 * @param result
-	 * @return SQLの検索結果リスト rs1
+	 * @return SQLの検索結果リスト
 	 */
-	
 	public List<Fortunemaster> getselectSQLfromFm(Fortunemaster result){
 		List <Fortunemaster> rs1 = jdbcManager
 				.from(Fortunemaster.class)

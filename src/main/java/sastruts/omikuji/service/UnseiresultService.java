@@ -11,18 +11,20 @@ import sastruts.omikuji.entity.Unseiresult;
 /**
  * {@link Unseiresult}のサービスクラスです。
  * 
+ * @author h_kim
+ * @version 1.0
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, 
 		date = "2022/05/18 15:14:29")
 public class UnseiresultService extends AbstractService<Unseiresult> {
 	
 	/**
-	 * 過去のおみくじ履歴に同じ日付と誕生日がある場合、同じ結果を検索します。
+	 * 過去のおみくじ結果に同じ日付と誕生日がある場合、同じ結果を検索するクラスです。
+	 * 
 	 * @param todayString
 	 * @param birthday
-	 * @return SQL文の結果リスト　omkjid
+	 * @return SQL文の結果リスト　
 	 */
-	
 	public List <Unseiresult> getcompareSQLfromUr(String todayString, String birthday){
 		String today = todayString;
 		String bday = birthday;
@@ -38,12 +40,12 @@ public class UnseiresultService extends AbstractService<Unseiresult> {
 	}
 	
 	/**
-	 * 半年前の日付とお誕生日を条件で使っておみくじ結果を検索します。
+	 * 半年前の日付とお誕生日を条件で使っておみくじ結果を検索するクラスです。
+	 * 
 	 * @param birthday
 	 * @param checkdate
 	 * @return SQL文の結果リスト halfres
 	 */
-	
 	public List <Unseiresult> getHalfyearResultSQL (String birthday, String checkdate) {
 		String bday = birthday;
 		String chkdate = checkdate;

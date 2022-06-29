@@ -5,15 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * データベースを連結します。
+ * データベースを連結するクラスです。
+ * 
  * @author h_kim
  * @version 1.0
  */
 public class DBUtil {
 
 	/**
-	 * データベースドライバーでPostgresqlDBを連結します。
-	 * @return Connection conn
+	 * データベースドライバーでPostgresqlDBを連結する。
+	 * @return コネクション conn
 	 */
     public static Connection getConnection() {
         String server = "jdbc:postgresql://localhost:5432/omikuji";

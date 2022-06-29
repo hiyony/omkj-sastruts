@@ -1,108 +1,116 @@
 package sastruts.omikuji.others;
 
 /**
- * 抽象クラスをセットします。
+ * 運勢の抽象クラスです。
+ * 
  * @author h_kim
  * @version 1.0
  */
 public abstract class Unsei implements Fortune{
+	
+	/** 運勢名 */
     protected String unsei;
+	
+	/** 願い事 */
     protected String negaigoto;
+	
+	/** 商い */
     protected String akinai;
+	
+	/** 学問 */
     protected String gakumon;
+	
+	/** おみくじコード */
     protected String omikujicode;
+	
+	/** 抽象メソッド */
     public abstract void setUnsei();
 
     /**
-     * 値を取得します。
-     * @return
+     * 運勢名を取得します。
+     * @return　運勢名
      */
     public String getUnsei(){
         return unsei;
     }
     
     /**
-     * 値をセットします。
-     * @param unsei
+     * 運勢名をセットします。
+     * @param unsei　運勢名
      */
     public void setUnsei(String unsei) {
         this.unsei=unsei;
     }
     
     /**
-     * 値を取得します。
-     * @return
+     * 願い事を取得します。
+     * @return　願い事
      */
     public String getNegaigoto(){
         return negaigoto;
     }
     
     /**
-     * 値をセットします。
-     * @param unsei
+     * 願い事をセットします。
+     * @param negaigoto　願い事
      */
     public void setNegaigoto(String negaigoto) {
         this.negaigoto=negaigoto;
     }
 
     /**
-     * 値を取得します。
-     * @return
+     * 商いを取得します。
+     * @return　商い
      */
     public String getAkinai(){
         return akinai;
     }
     
     /**
-     * 値をセットします。
-     * @param unsei
+     * 商いをセットします。
+     * @param akinai 商い
      */
     public void setAkinai(String akinai) {
         this.akinai=akinai;
     }
 
     /**
-     * 値を取得します。
-     * @return
+     * 学問を取得します。
+     * @return 学問
      */
     public String getGakumon(){
         return gakumon;
     }
     
     /**
-     * 値をセットします。
-     * @param unsei
+     * 学問をセットします。
+     * @param gakumon 学問
      */
     public void setGakumon(String gakumon) {
         this.gakumon=gakumon;
     }
 
     /**
-     * 値を取得します。
-     * @return
+     * おみくじコードを取得します。
+     * @return　おみくじコード
      */
     public String getOmikujicode(){
         return omikujicode;
     }
     
     /**
-     * 値をセットします。
-     * @param unsei
+     * おみくじコードをセットします。
+     * @param omikujicode　おみくじコード
      */
     public void setOmikujicode(String omikujicode){
         this.omikujicode=omikujicode;
     }
 
     /**
-     * インターフェースから相続されます。
-     * @return sb.toString()
+     * インターフェースから相続される。
+     * @return Stringフォマットのおみくじ結果
      */
     public String disp() {
-//인터페이스로만 읽어들여야 하므로 추상클래스에서는 프로퍼티를 읽어오지 않아도 OK!
-//        Properties p = new Properties();
-//        String path = Unsei.class.getResource("fortune.properties").getPath();
-//        p.load(new FileReader(path));
-//        String DISP_STR = p.getProperty("disp_str");
 
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(DISP_STR, getUnsei()));

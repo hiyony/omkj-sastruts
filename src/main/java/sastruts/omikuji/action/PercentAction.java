@@ -10,39 +10,38 @@ import javax.servlet.http.HttpServletRequest;
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-import org.seasar.struts.annotation.Required;
 
 import sastruts.omikuji.dto.PercentDto;
 import sastruts.omikuji.dto.PercentResDto;
-import sastruts.omikuji.form.PercentForm;
 import sastruts.omikuji.service.OmikujiiService;
 
 /**
- * Company Practice
- * 今までのおみくじ割合システムです。
+ * 今までのおみくじ割合取得Actionクラス。
+ * Actionクラス、画面からの要求を制御するコントローラークラス。
+ * 今までのおみくじ結果の割合を取得します。
+ * 
  * @author h_kim
  * @version 1.0
  */
 
 public class PercentAction {
 	
-	@Required
-	@ActionForm
-	protected PercentForm percentForm;
-	
+	/** Serviceクラス */
 	@Resource
 	protected OmikujiiService omikujiiService;
 	
+	/** HTTPリクエスト */
 	@Resource
 	protected HttpServletRequest request;
 	
 	/**
-	 * 入力されたお誕生日に関して今までのおみくじ割合を計算して画面に出力する。
+	 * 誕生日の今までのおみくじ割合と数を検索しリストを取得する。
+	 * 入力パラメーターはrequestから取得する
+	 * 入力された誕生日のおみくじ結果に関して項目それぞれの数と割合を自動的に計算し処理する。
+	 * 
 	 * @return percent.jsp
 	 */
-	
 	@Execute(validator = false)
 	public String percent() {
 		

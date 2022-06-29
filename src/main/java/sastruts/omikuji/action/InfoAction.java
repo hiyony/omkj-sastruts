@@ -9,40 +9,39 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-import org.seasar.struts.annotation.Required;
 
 import sastruts.omikuji.dto.InfoDto;
 import sastruts.omikuji.entity.Postinfo;
-import sastruts.omikuji.form.InfoForm;
 import sastruts.omikuji.service.PostinfoService;
 
 /**
- * Company Practice
- * 住所自動入力システムです。
- * →　郵便番号から住所を取得する
+ * 郵便番号から住所取得Actionクラス。
+ * Actionクラス、画面からの要求を制御するコントローラークラス。
+ * 入力された郵便番号から自動的に住所の結果を取得します。
+ * 
  * @author h_kim
  * @version 1.0
  */
 
 public class InfoAction {
-	@Required
-	@ActionForm
-	protected InfoForm infoForm;
 	
+	/** Serviceクラス */
 	@Resource
 	protected PostinfoService postinfoService;
 	
+	/** HTTPリクエスト */
 	@Resource
 	protected HttpServletRequest request;
 	
+	/** HTTPリスポンス */
 	@Resource 
 	protected HttpServletResponse response;
 	
 	/**
-	 * 郵便番号から住所を検索する処理。
-	 * →　入力された郵便番号を受けて、その郵便番号を使って住所を検索
+	 * 郵便番号から住所を検索し住所を取得する。
+	 * 入力パラメーターはrequestから取得する。
+	 * 
 	 * @return null
 	 * @throws IOException
 	 */

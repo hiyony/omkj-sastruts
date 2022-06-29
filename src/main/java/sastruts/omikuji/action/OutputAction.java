@@ -32,8 +32,9 @@ import sastruts.omikuji.service.OmikujiiService;
 import sastruts.omikuji.service.UnseiresultService;
 
 /**
- * Company Practice
- * おみくじ結果を検索するクラスです。
+ * おみくじ結果取得Actionクラス。
+ * Actionクラス、画面からの要求を制御するコントローラークラス。
+ * おみくじデータベースから入力された誕生日のおみくじ結果を取得します。
  * 
  * @author h_kim
  * @version 1.0
@@ -41,55 +42,44 @@ import sastruts.omikuji.service.UnseiresultService;
 
 public class OutputAction {
 	
-	/**
-	 * Actionの内に使用されるフォームです。
-	 */
+	/** ActionFormクラス */
 	@Required
 	@ActionForm
 	protected OutputForm outputForm;
 	
-	/**
-	 * Actionの内に使用されるフォームです。
-	 */
+	/** ActionFormクラス */
 	@Required
 	@ActionForm
 	protected InputForm inputForm;
 	
-	/**
-	 * Actionの内に使用されるSQL文処理のサービスファイルです。
-	 */
+	/** Serviceクラス */
 	@Resource
 	protected FortunemasterService fortunemasterService;
 	
-	/**
-	 * Actionの内に使用されるSQL文処理のサービスファイルです。
-	 */
+	/** Serviceクラス */
 	@Resource
 	protected OmikujiiService omikujiiService;
 	
-	/**
-	 * Actionの内に使用されるSQL文処理のサービスファイルです。
-	 */
+	/** Serviceクラス */
 	@Resource
 	protected UnseiresultService unseiresultService;
 	
-	/**
-	 * サーブレットにRequest要請します。
-	 */
+	/** HTTPリクエスト */
 	@Resource
 	protected HttpServletRequest request;
 	
-	/**
-	 * おみくじの内容が入っているCSVファイルです。
-	 */
+	/** おみくじのCSVファイル */
 	private static final String path = "/omkj-sastruts/csvomkj.csv";
 	
 	/**
-	 * 入力されたお誕生日を取得してCSVファイルからおみくじの結果をランダムで出力します。
+	 * 入力されたお誕生日でおみくじの結果をランダムで取得する。
+	 * 入力パラメーターはrequestから取得する(yyyyMMdd方式)
+	 * 過去の結果の中に同じ誕生日と日付の結果がある場合、これを取得する。
+	 * 新しい日付と誕生日の場合、ランダムで結果を取得する。
+	 * 
 	 * @return output.jsp
 	 * @throws IOException
 	 */
-	
 	@SuppressWarnings("resource")
 	@Execute(validator = false)
 	public String output() throws IOException {

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 /**
  * Fortune インターフェースです。
+ * ResourceBundleを利用してプロパティファイルに接近する。
+ * 
  * @author h_kim
  * @version 1.0
  */

@@ -1,6 +1,7 @@
 package sastruts.omikuji.entity;
 
 import java.io.Serializable;
+
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 /**
  * Saveエンティティクラス
  * 
+ * @author h_kim
+ * @version 1.0
  */
 @Entity
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2022/05/31 17:03:55")

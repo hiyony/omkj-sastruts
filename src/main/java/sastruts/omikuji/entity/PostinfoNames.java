@@ -1,11 +1,14 @@
 package sastruts.omikuji.entity;
 
 import javax.annotation.Generated;
+
 import org.seasar.extension.jdbc.name.PropertyName;
 
 /**
  * {@link Postinfo}のプロパティ名の集合です。
  * 
+ * @author h_kim
+ * @version 1.0
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2022/06/21 13:39:18")
 public class PostinfoNames {

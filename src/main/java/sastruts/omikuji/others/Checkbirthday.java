@@ -3,7 +3,8 @@ package sastruts.omikuji.others;
 import java.text.SimpleDateFormat;
 
 /**
- * 誕生日をチェックします。
+ * 誕生日をチェックするクラスです。
+ * 
  * @author h_kim
  * @version1.0
  */
@@ -11,7 +12,8 @@ import java.text.SimpleDateFormat;
 public class Checkbirthday {
 	
 	/**
-	 * 正しい形式(yyyyMMdd)で入力するかチェックします。
+	 * 正しい方式(yyyyMMdd)で入力されているかをチェックします。
+	 * 
 	 * @param bday
 	 * @return boolean
 	 */

@@ -11,40 +11,39 @@ import javax.servlet.http.HttpServletRequest;
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-import org.seasar.struts.annotation.Required;
 
 import sastruts.omikuji.dto.SaveDto;
 import sastruts.omikuji.dto.SavingDto;
 import sastruts.omikuji.entity.Save;
-import sastruts.omikuji.form.SaveForm;
 import sastruts.omikuji.service.SaveService;
 
 /**
- * Company Practice
- * 個人情報保存システムです。
+ * 個人情報保存Actionクラス。
+ * Actionクラス、画面からの要求を制御するコントローラークラス。
+ * 入力された名前、郵便番号、メールアドレスをデータベースに保存し出力します。
+ * 
  * @author h_kim
  * @version 1.0
  */
 
 public class SaveAction {
-	@Required
-	@ActionForm
-	protected SaveForm saveForm;
 	
+	/** Serviceクラス */
 	@Resource
 	protected SaveService saveService;
 
+	/** HTTPリクエスト */
 	@Resource
 	protected HttpServletRequest request;
 	
 	/**
-	 * 入力された名前、郵便番号、住所、メールアドレスをデータベースに保存して画面に出力する。
+	 * 名前、郵便番号、住所、メールアドレスをデータベースに保存してこのデータをリストで取得する。
+	 * 入力パラメーターはrequestから取得をする
+	 * 
 	 * @return save.jsp
 	 * @throws IOException
 	 */
-	
 	@Execute(validator = false)
 	public String save() throws IOException {
 		request.setCharacterEncoding("UTF-8");

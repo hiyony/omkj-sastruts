@@ -9,37 +9,39 @@ import org.seasar.struts.annotation.Required;
 import sastruts.omikuji.others.Checkbirthday;
 
 /**
- * InputActionに関するフォームです。
+ * 初期画面から入力された値を保存するフォームクラスです。
+ * 
  * @author h_kim
  * @version 1.0
  */
-
-
 public class InputForm implements Serializable{
+	
+	/** 直列化 */
 	@SuppressWarnings("unused")
 	private static final long serialVerisionUID = 1L;
 	
+	/** 誕生日 */
 	@Required
 	public String birthday;
 	
 	/**
-	 * 値を受け取る。
-	 * @return birthday
+	 * 誕生日を受け取る。
+	 * @return 誕生日
 	 */
 	public String getBirthday() {
 		return birthday;
 	}
 
 	/**
-	 * 値をセットする。
-	 * @param birthday
+	 * 誕生日をセットする。
+	 * @param birthday　誕生日
 	 */
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
 	/**
-	 * 条件と違う場合エラーメッセージを表示する。
+	 * 条件(yyyyMMdd方式)と違う場合エラーメッセージを表示する。
 	 * @return エラーメッセージ errors
 	 */
 	public ActionErrors validate() {

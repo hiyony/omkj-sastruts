@@ -1,64 +1,72 @@
 package sastruts.omikuji.dto;
 
 /**
- * PercentActionに関するDTOです。s
+ * おみくじ結果の割合をリストで表示する内容を保存するDTOクラスです。
+ * DTOクラス＝単純データ移送クラス。
+ * 
  * @author h_kim
  * @version 1.0
  */
 
 public class PercentResDto {
 	
+	/** 運勢数 */
+	private Integer fortunecount;
+	
+	/** 割合 */
+	private Integer totalpercent;
+	
+	/** 運勢名 */
+	private String fortunename;
+	
+	
 	/**
-	 * 値を受け取る。
-	 * @return fortunename
+	 * 運勢名を受け取る。
+	 * @return 運勢名
 	 */
 	public String getFortunename() {
 		return fortunename;
 	}
 	
 	/**
-	 * 値をセットする。
-	 * @param fortunename
+	 * 運勢名をセットする。
+	 * @param fortunename　運勢名
 	 */
 	public void setFortunename(String fortunename) {
 		this.fortunename = fortunename;
 	}
 	
 	/**
-	 * 値を受け取る。
-	 * @return fortunecount
+	 * 運勢数を受け取る。
+	 * @return 運勢数
 	 */
 	public Integer getFortunecount() {
 		return fortunecount;
 	}
 	
 	/**
-	 * 値をセットする。
-	 * @param fortunecount
+	 * 運勢数をセットする。
+	 * @param fortunecount　運勢数
 	 */
 	public void setFortunecount(Integer fortunecount) {
 		this.fortunecount = fortunecount;
 	}
 	
 	/**
-	 * 値を受け取る。
-	 * @return totalpercent
+	 * 割合を受け取る。
+	 * @return 割合
 	 */
 	public Integer getTotalpercent() {
 		return totalpercent;
 	}
 	
 	/**
-	 * 値をセットする。
-	 * @param totalpercent
+	 * 割合をセットする。
+	 * @param totalpercent　割合
 	 */
 	public void setTotalpercent(Integer totalpercent) {
 		this.totalpercent = totalpercent;
 	}
-	
-	private Integer fortunecount;
-	private Integer totalpercent;
-	private String fortunename;
-	
+
 
 }

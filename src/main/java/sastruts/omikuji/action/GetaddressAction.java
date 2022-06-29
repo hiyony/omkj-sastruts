@@ -20,31 +20,36 @@ import sastruts.omikuji.entity.Postinfo;
 import sastruts.omikuji.service.PostinfoService;
 
 /**
- * Company Practice
- * 郵便番号自動入力システムです。
- * → 住所から郵便番号を取得する
+ * 住所から郵便番号取得Actionクラス。
+ * Actionクラス、画面からの要求を制御するコントローラークラス。
+ * 入力された住所から自動的に郵便番号の結果を取得する。
+ * 
  * @author h_kim
  * @version 1.0
  */
 
 public class GetaddressAction {
 	
+	/** Serviceクラス */
 	@Resource
 	protected PostinfoService postinfoService;
 	
+	/** HTTPリクエスト */
 	@Resource
 	protected HttpServletRequest request;
 	
+	/** HTTPリスポンス */
 	@Resource
 	protected HttpServletResponse response;
 	
 	/**
-	 * 住所から郵便番号を検索する処理。
-	 * →　入力された住所を都道府県、市区町村などの基準で切って郵便番号を検索
+	 * 入力された住所から郵便番号の結果を検索しリストを取得する。
+	 * 入力パラメーターはrequestから取得する。
+	 * 結果が一件か複数件かによって検索するための文字列の長さを調節し処理する。
+	 * 
 	 * @return null
 	 * @throws IOException
 	 */
-	
 	@Execute(validator = false)
 	public String getaddress() throws IOException {
 		
